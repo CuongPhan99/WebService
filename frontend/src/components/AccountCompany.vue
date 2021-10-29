@@ -1,5 +1,6 @@
 <template>
   <div class="main-content">
+    {{logo}}
     <div class="content-left">
       <div class="content-left-item">
         <h4>企業情報の設定</h4>
@@ -118,7 +119,16 @@
               <p>二段階認証を要求する</p>
             </label>
             <p>オフ</p>
-            <img class="toggle" @click="onClick1(onToggle1)" :src="onToggle1 ? require('../assets/toggle-on.png') : require('../assets/toggle-off.png')" alt="" />
+            <img
+              class="toggle"
+              @click="onClick1(onToggle1)"
+              :src="
+                onToggle1
+                  ? require('../assets/toggle-on.png')
+                  : require('../assets/toggle-off.png')
+              "
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -129,7 +139,16 @@
           <div class="infomation">
             <label>メール通知を許可する</label>
             <p>オン</p>
-            <img class="toggle" @click="onClick2(onToggle2)" :src="onToggle2 ? require('../assets/toggle-off.png') : require('../assets/toggle-on.png')" alt="" />
+            <img
+              class="toggle"
+              @click="onClick2(onToggle2)"
+              :src="
+                onToggle2
+                  ? require('../assets/toggle-off.png')
+                  : require('../assets/toggle-on.png')
+              "
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -157,23 +176,32 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       showImage: false,
       showName: false,
       onToggle1: false,
-      onToggle2: false
+      onToggle2: false,
+      logo: null
     };
   },
   methods: {
     onClick1() {
-      this.onToggle1 = !this.onToggle1
+      this.onToggle1 = !this.onToggle1;
     },
     onClick2() {
-      this.onToggle2 = !this.onToggle2
-    }
-  }
+      this.onToggle2 = !this.onToggle2;
+    },
+  },
+  mounted() {
+    axios
+      .get("http://localhost:1323/accounts/1")
+      .then((response) => (this.logo = response))
+      .catch(error => console.log(error))
+  },
 };
 </script>
 
@@ -372,7 +400,8 @@ export default {
   background-color: white;
   color: #d64d10;
 }
-.add-content-submit img, label {
+.add-content-submit img,
+label {
   margin: auto;
 }
 /* Content Right */

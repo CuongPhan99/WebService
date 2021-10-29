@@ -558,6 +558,16 @@ td:nth-child(4) {
   margin-top: 50px;
   border-collapse: collapse;
 }
+.list-member thead{
+  position: fixed;
+  margin-right: 300px;
+  background-color: white;
+  z-index: 90;
+}
+.list-member tbody{
+    display: inline-block;
+    margin-top: 40px;
+}
 .list-member th {
   border-bottom: 4px solid #201a39;
 }
@@ -571,14 +581,6 @@ td:nth-child(4) {
 table{
   table-layout: fixed;
   width: 100%;
-}
-table tbody, table thead{
-  display: block;
-  width: 100%;
-}
-table tbody{
-  overflow: auto;
-  max-height: 710px;
 }
 th{
   color: #564c7e;

@@ -1,3 +1,4 @@
+web-api:
+	cd GolangPostgresql && go run main.go
 web:
-	cd frontend && npm run build
-	cd GolangPostgresql/web && go run main.go
+	cd frontend && npm run serve
