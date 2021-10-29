@@ -24,16 +24,20 @@ func GetAccounts(c echo.Context) error {
 	return c.JSON(http.StatusOK, accounts)
 }
 
-func GetAccountById(c echo.Context) error {
+func GetRepoAccountById(c echo.Context) ([]model.Accounts, error) {
 	db := storage.GetDBInstance()
 	accounts := []model.Accounts{}
 	id := c.Param("id")
-	account := db.Where("id = ?", id).First(&accounts)
 
-	if account == nil {
-		return echo.NewHTTPError(http.StatusNotFound, "user not found")
+	if err := db.First(&accounts, "id = ?", id).Error; err != nil {
+		return nil, err
 	}
-	return c.JSON(http.StatusOK, account)
+	return accounts, nil
+}
+
+func GetAccountById(c echo.Context) error {
+	accounts, _ := GetRepoAccountById(c)
+	return c.JSON(http.StatusOK, accounts)
 }
 
 func UpdateCompany(c echo.Context) error {

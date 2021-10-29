@@ -1,6 +1,5 @@
 <template>
   <div class="main-content">
-    {{logo}}
     <div class="content-left">
       <div class="content-left-item">
         <h4>企業情報の設定</h4>
@@ -10,7 +9,7 @@
             <label>企業のロゴ</label>
             <img
               class="image-info"
-              src="../assets/best-logos-2017-1.png"
+              :src="require('../assets/' + logo)"
               alt=""
             />
             <button class="edit" @click="showImage = true">
@@ -30,7 +29,7 @@
                   <button><img src="../assets/close.png" alt="" /></button>
                 </div>
                 <div class="images">
-                  <img src="../assets/best-logos-2017-1.png" alt="" />
+                  <img :src="require('../assets/' + logo)" alt="" />
                   <div class="upload-image">
                     <img src="../assets/icon_upload.png" alt="" />
                     <p>画像のアップロード</p>
@@ -42,7 +41,7 @@
           </div>
           <div class="infomation">
             <label>企業名</label>
-            <p>〇〇株式会社</p>
+            <p>{{company_name}}</p>
             <button class="edit" @click="showName = true">
               <img src="../assets/edit.png" alt="" /><label>編集</label>
             </button>
@@ -69,40 +68,40 @@
           </div>
           <div class="infomation">
             <label>企業住所</label>
-            <p>〒100-0014東京都千代田区永田町2-14-3</p>
+            <p>{{address_company}}</p>
             <button class="edit">
               <img src="../assets/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>電話番号</label>
-            <p>0365508987</p>
+            <p>{{phone}}</p>
             <button class="edit">
               <img src="../assets/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>代表者氏名</label>
-            <p>山田太郎</p>
+            <p>{{name}}</p>
             <button class="edit">
               <img src="../assets/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>パートナー会社</label>
-            <p>株式会社Wiz</p>
+            <p>{{co_partner}}</p>
           </div>
           <div class="infomation">
             <label>紹介営業担当者</label>
-            <p>---</p>
+            <p>{{seller_name}}</p>
           </div>
           <div class="infomation">
             <label>管理番号</label>
-            <p>0123456789</p>
+            <p>{{check_number}}</p>
           </div>
           <div class="infomation">
             <label>オリジナル印影</label>
-            <img class="image-info" src="../assets/stamp.png" alt="" />
+            <img class="image-info" :src="require('../assets/' + originer_imprint)" alt="" />
             <button class="edit">
               <img src="../assets/edit.png" alt="" /><label>編集</label>
             </button>
@@ -121,9 +120,9 @@
             <p>オフ</p>
             <img
               class="toggle"
-              @click="onClick1(onToggle1)"
+              @click="onClick1(security)"
               :src="
-                onToggle1
+                security
                   ? require('../assets/toggle-on.png')
                   : require('../assets/toggle-off.png')
               "
@@ -141,11 +140,11 @@
             <p>オン</p>
             <img
               class="toggle"
-              @click="onClick2(onToggle2)"
+              @click="onClick2(notification)"
               :src="
-                onToggle2
-                  ? require('../assets/toggle-off.png')
-                  : require('../assets/toggle-on.png')
+                notification
+                  ? require('../assets/toggle-on.png')
+                  : require('../assets/toggle-off.png')
               "
               alt=""
             />
@@ -183,23 +182,34 @@ export default {
     return {
       showImage: false,
       showName: false,
-      onToggle1: false,
-      onToggle2: false,
-      logo: null
+      logo: "", company_name: "", address_company: "", phone: "",name: "", co_partner: "",
+      seller_name: "", check_number: "", originer_imprint: "", security: "", notification: ""
     };
   },
   methods: {
     onClick1() {
-      this.onToggle1 = !this.onToggle1;
+      this.security = !this.security;
     },
     onClick2() {
-      this.onToggle2 = !this.onToggle2;
+      this.notification = !this.notification;
     },
   },
   mounted() {
     axios
-      .get("http://localhost:1323/accounts/1")
-      .then((response) => (this.logo = response))
+      .get("/accounts/1")
+      .then((response) => (
+        this.logo = response.data[0].logo,
+        this.company_name =  response.data[0].company_name,
+        this.address_company =  response.data[0].address_company,
+        this.phone =  response.data[0].phone,
+        this.name =  response.data[0].name,
+        this.co_partner =  response.data[0].co_partner,
+        this.seller_name =  response.data[0].seller_name,
+        this.check_number =  response.data[0].check_number,
+        this.originer_imprint =  response.data[0].originer_imprint,
+        this.security =  response.data[0].security,
+        this.notification =  response.data[0].notification
+        ))
       .catch(error => console.log(error))
   },
 };
