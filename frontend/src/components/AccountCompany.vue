@@ -41,7 +41,7 @@
           </div>
           <div class="infomation">
             <label>企業名</label>
-            <p>{{company_name}}</p>
+            <p>{{ company_name }}</p>
             <button class="edit" @click="showName = true">
               <img src="../assets/edit.png" alt="" /><label>編集</label>
             </button>
@@ -68,40 +68,44 @@
           </div>
           <div class="infomation">
             <label>企業住所</label>
-            <p>{{address_company}}</p>
+            <p>{{ address_company }}</p>
             <button class="edit">
               <img src="../assets/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>電話番号</label>
-            <p>{{phone}}</p>
+            <p>{{ phone }}</p>
             <button class="edit">
               <img src="../assets/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>代表者氏名</label>
-            <p>{{name}}</p>
+            <p>{{ name }}</p>
             <button class="edit">
               <img src="../assets/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>パートナー会社</label>
-            <p>{{co_partner}}</p>
+            <p>{{ co_partner }}</p>
           </div>
           <div class="infomation">
             <label>紹介営業担当者</label>
-            <p>{{seller_name}}</p>
+            <p>{{ seller_name }}</p>
           </div>
           <div class="infomation">
             <label>管理番号</label>
-            <p>{{check_number}}</p>
+            <p>{{ check_number }}</p>
           </div>
           <div class="infomation">
             <label>オリジナル印影</label>
-            <img class="image-info" :src="require('../assets/' + originer_imprint)" alt="" />
+            <img
+              class="image-info"
+              :src="require('../assets/' + originer_imprint)"
+              alt=""
+            />
             <button class="edit">
               <img src="../assets/edit.png" alt="" /><label>編集</label>
             </button>
@@ -182,6 +186,8 @@ export default {
     return {
       showImage: false,
       showName: false,
+      id: this.$route.params.id,
+      accounts: {},
       logo: "", company_name: "", address_company: "", phone: "",name: "", co_partner: "",
       seller_name: "", check_number: "", originer_imprint: "", security: "", notification: ""
     };
@@ -196,21 +202,25 @@ export default {
   },
   mounted() {
     axios
-      .get("/accounts/1")
-      .then((response) => (
-        this.logo = response.data[0].logo,
-        this.company_name =  response.data[0].company_name,
-        this.address_company =  response.data[0].address_company,
-        this.phone =  response.data[0].phone,
-        this.name =  response.data[0].name,
-        this.co_partner =  response.data[0].co_partner,
-        this.seller_name =  response.data[0].seller_name,
-        this.check_number =  response.data[0].check_number,
-        this.originer_imprint =  response.data[0].originer_imprint,
-        this.security =  response.data[0].security,
-        this.notification =  response.data[0].notification
-        ))
-      .catch(error => console.log(error))
+      .get("/accounts/" + this.id)
+      .then(
+        (response) => (
+          console.log(response),
+          (this.accounts = response.body),
+          (this.logo = response.data[0].logo),
+          (this.company_name = response.data[0].company_name),
+          (this.address_company = response.data[0].address_company),
+          (this.phone = response.data[0].phone),
+          (this.name = response.data[0].name),
+          (this.co_partner = response.data[0].co_partner),
+          (this.seller_name = response.data[0].seller_name),
+          (this.check_number = response.data[0].check_number),
+          (this.originer_imprint = response.data[0].originer_imprint),
+          (this.security = response.data[0].security),
+          (this.notification = response.data[0].notification)
+        )
+      )
+      .catch((error) => console.log(error));
   },
 };
 </script>
