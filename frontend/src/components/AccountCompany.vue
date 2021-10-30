@@ -32,7 +32,14 @@
                   <img :src="require('../assets/' + logo)" alt="" />
                   <div class="upload-image">
                     <img src="../assets/icon_upload.png" alt="" />
-                    <p>画像のアップロード</p>
+                    <button v-on:click="handleClickInputFile">
+                      画像のアップロード
+                    </button>
+                    <input
+                      ref="fileInputLogo"
+                      type="file"
+                      style="display: none"
+                    />
                   </div>
                 </div>
                 <button class="update">変更する</button>
@@ -179,7 +186,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
@@ -187,9 +194,17 @@ export default {
       showImage: false,
       showName: false,
       id: this.$route.params.id,
-      accounts: {},
-      logo: "", company_name: "", address_company: "", phone: "",name: "", co_partner: "",
-      seller_name: "", check_number: "", originer_imprint: "", security: "", notification: ""
+      logo: "",
+      company_name: "",
+      address_company: "",
+      phone: "",
+      name: "",
+      co_partner: "",
+      seller_name: "",
+      check_number: "",
+      originer_imprint: "",
+      security: "",
+      notification: "",
     };
   },
   methods: {
@@ -199,6 +214,9 @@ export default {
     onClick2() {
       this.notification = !this.notification;
     },
+    handleClickInputFile() {
+      this.$refs.fileInputLogo.click();
+    },
   },
   mounted() {
     axios
@@ -206,7 +224,6 @@ export default {
       .then(
         (response) => (
           console.log(response),
-          (this.accounts = response.body),
           (this.logo = response.data[0].logo),
           (this.company_name = response.data[0].company_name),
           (this.address_company = response.data[0].address_company),
@@ -354,13 +371,15 @@ export default {
   justify-content: center;
   height: 20px;
 }
-.upload-image p {
+.upload-image button {
   font-family: "NotoSansJP-Medium";
   font-weight: 700;
   font-size: 14px;
   color: #d64d10;
   margin: 0;
   margin-left: 5px;
+  border: none;
+  background-color: transparent;
 }
 .upload-image img {
   margin-right: 5px;

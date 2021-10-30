@@ -21,7 +21,6 @@
             <li><a>契約書の管理</a></li>
             <li><a>雛形の管理</a></li>
             <li>
-              <router-link to="/accounts">
               <a
                 @click="
                   subNav(activeNav);
@@ -39,7 +38,6 @@
                   alt=""
                 />
               </a>
-              </router-link>
               <ul v-show="activeNav" class="subnav">
                 <li
                   @click="
@@ -56,7 +54,6 @@
               </ul>
             </li>
             <li>
-              <router-link to="/contact">
               <a
                 @click="
                   changeTab('contact');
@@ -65,7 +62,6 @@
                 :class="{ active: tabContent === 'contact' }"
                 >顧客一覧</a
               >
-              </router-link>
             </li>
           </ul>
         </div>
@@ -138,7 +134,7 @@ export default {
     return {
       activeNav: false,
       tabContent: "",
-      tabContentChild: "",      
+      tabContentChild: "",
     };
   },
   methods: {
