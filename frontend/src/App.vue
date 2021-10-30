@@ -3,15 +3,15 @@
     <div class="sidebar" role="banner">
       <div class="header-menu">
         <div class="logo">
-          <img src="../src/assets/Mask Group 36.png" alt="" />
+          <img src="./assets/images/Mask Group 36.png" alt="" />
         </div>
         <div class="title">
-          <img src="../src/assets/best-logos-2017-1.png" alt="" />
+          <img src="./assets/images/best-logos-2017-1.png" alt="" />
           <label>株式会社C-mind</label>
         </div>
         <div class="add-menu">
           <button class="update">
-            <img src="../src/assets/Union 6.png" alt="" />
+            <img src="./assets/images/Union 6.png" alt="" />
             <p>契約書を作成する</p>
           </button>
         </div>
@@ -25,15 +25,15 @@
                 "
                 :class="{ active: tabActive == index }"
                 >{{ item.name }}
-                <img
+                <!-- <img
                   v-if="index === 3"
                   v-bind:src="
                     activeNav
-                      ? require('./assets/icon-on.png')
-                      : require('./assets/icon-off.png')
+                      ? require('./assets/images/icon-on.png')
+                      : require('./assets/images/icon-off.png')
                   "
                   alt=""
-                />
+                /> -->
               </a>
               <ul v-show="activeNav" class="subnav"> 
                 <li
@@ -46,8 +46,7 @@
                   <a>
                     {{ child.name }}
                   </a>
-                  </router-link>
-
+                  </router-link>                 
                 </li>
               </ul>
             </li>            
@@ -64,10 +63,10 @@
           <li><a href="#">お問い合わせ</a></li>
           <li>
             <ul class="social-network">
-              <img src="../src/assets/Mask Group 60.png" alt="" />
-              <img src="../src/assets/Mask Group 59.png" alt="" />
-              <img src="../src/assets/Mask Group 50.png" alt="" />
-              <img src="../src/assets/Mask Group 51.png" alt="" />
+              <img src="./assets/images/Mask Group 60.png" alt="" />
+              <img src="./assets/images/Mask Group 59.png" alt="" />
+              <img src="./assets/images/Mask Group 50.png" alt="" />
+              <img src="./assets/images/Mask Group 51.png" alt="" />
             </ul>
           </li>
           <li><p>Digital Sign ©2021</p></li>
@@ -79,17 +78,17 @@
         <div class="header">
           <div class="row-header">
             <div class="search">
-              <img src="../src/assets/Union 5.png" alt="" />
+              <img src="./assets/images/Union 5.png" alt="" />
               <input type="text" value="契約書の検索" />
             </div>
             <div class="vip">
               <button class="member-vip">
-                <img src="../src/assets/Group 5231.png" alt="" />
+                <img src="./assets/images/Group 5231.png" alt="" />
                 <label>プランを変更</label>
               </button>
             </div>
             <div class="account">
-              <img src="../src/assets/1_NpS-s4VDYVsNbIplzmKIMg.png" alt="" />
+              <img src="./assets/images/1_NpS-s4VDYVsNbIplzmKIMg.png" alt="" />
               <label>水原 コーコー</label>
             </div>
           </div>

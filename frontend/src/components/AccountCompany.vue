@@ -7,14 +7,15 @@
         <div class="infomations">
           <div class="infomation">
             <label>企業のロゴ</label>
-            <img
+            <!-- <img
               class="image-info"
-              :src="require('../assets/' + logo)"
+              :src="require('../assets/images/' + logo)"
               alt=""
-            />
+            /> -->
             <button class="edit" @click="showImage = true">
-              <img src="../assets/edit.png" alt="" /><label>編集</label>
+              <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
+            <!-- PopUp Edit Image -->
             <transition name="fade" appear>
               <div
                 class="modal-overlay"
@@ -24,18 +25,21 @@
             </transition>
             <transition name="slide" appear>
               <div class="edit-photo" v-if="showImage">
-                <div class="title" @click="showImage = false">
+                <div class="title">
                   <h3>企業ロゴを変更</h3>
-                  <button><img src="../assets/close.png" alt="" /></button>
+                  <button @click="showImage = false"><img src="../assets/images/close.png" alt="" /></button>
                 </div>
                 <div class="images">
-                  <img :src="require('../assets/' + logo)" alt="" />
+                  <!-- <img :src="require('../assets/images/' + logo)" alt="" /> -->
+                      <!-- <img :src="image" /> -->
+
                   <div class="upload-image">
-                    <img src="../assets/icon_upload.png" alt="" />
+                    <img src="../assets/images/icon_upload.png" alt="" />
                     <button v-on:click="handleClickInputFile">
                       画像のアップロード
                     </button>
                     <input
+                    @change="onFileChange"
                       ref="fileInputLogo"
                       type="file"
                       style="display: none"
@@ -45,13 +49,15 @@
                 <button class="update">変更する</button>
               </div>
             </transition>
+            <!-- ----------- -->
           </div>
           <div class="infomation">
             <label>企業名</label>
             <p>{{ company_name }}</p>
             <button class="edit" @click="showName = true">
-              <img src="../assets/edit.png" alt="" /><label>編集</label>
+              <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
+            <!-- PopUp Edit Name -->
             <transition name="fade" appear>
               <div
                 class="modal-overlay"
@@ -63,7 +69,7 @@
               <div class="edit-name" v-if="showName">
                 <div class="title" @click="showName = false">
                   <h3>企業ロゴを変更</h3>
-                  <button><img src="../assets/close.png" alt="" /></button>
+                  <button><img src="../assets/images/close.png" alt="" /></button>
                 </div>
                 <div class="input-name">
                   <label for="">企業名</label>
@@ -72,26 +78,27 @@
                 <button class="update">変更する</button>
               </div>
             </transition>
+            <!-- ------------ -->
           </div>
           <div class="infomation">
             <label>企業住所</label>
             <p>{{ address_company }}</p>
             <button class="edit">
-              <img src="../assets/edit.png" alt="" /><label>編集</label>
+              <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>電話番号</label>
             <p>{{ phone }}</p>
             <button class="edit">
-              <img src="../assets/edit.png" alt="" /><label>編集</label>
+              <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>代表者氏名</label>
             <p>{{ name }}</p>
             <button class="edit">
-              <img src="../assets/edit.png" alt="" /><label>編集</label>
+              <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
@@ -108,13 +115,13 @@
           </div>
           <div class="infomation">
             <label>オリジナル印影</label>
-            <img
+            <!-- <img
               class="image-info"
-              :src="require('../assets/' + originer_imprint)"
+              :src="require('../assets/images/' + originer_imprint)"
               alt=""
-            />
+            /> -->
             <button class="edit">
-              <img src="../assets/edit.png" alt="" /><label>編集</label>
+              <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
         </div>
@@ -129,16 +136,16 @@
               <p>二段階認証を要求する</p>
             </label>
             <p>オフ</p>
-            <img
+            <!-- <img
               class="toggle"
               @click="onClick1(security)"
               :src="
                 security
-                  ? require('../assets/toggle-on.png')
-                  : require('../assets/toggle-off.png')
+                  ? require('../assets/images/toggle-on.png')
+                  : require('../assets/images/toggle-off.png')
               "
               alt=""
-            />
+            /> -->
           </div>
         </div>
       </div>
@@ -149,23 +156,23 @@
           <div class="infomation">
             <label>メール通知を許可する</label>
             <p>オン</p>
-            <img
+            <!-- <img
               class="toggle"
               @click="onClick2(notification)"
               :src="
                 notification
-                  ? require('../assets/toggle-on.png')
-                  : require('../assets/toggle-off.png')
+                  ? require('../assets/images/toggle-on.png')
+                  : require('../assets/images/toggle-off.png')
               "
               alt=""
-            />
+            /> -->
           </div>
         </div>
       </div>
       <div class="add-content">
         <h4>アラート通知先の設定</h4>
         <button class="add-content-submit">
-          <img src="../assets/icon_add.png" alt="" /><label
+          <img src="../assets/images/icon_add.png" alt="" /><label
             >アラート通知先の設定をする</label
           >
         </button>
@@ -205,6 +212,7 @@ export default {
       originer_imprint: "",
       security: "",
       notification: "",
+      image: "",
     };
   },
   methods: {
@@ -216,6 +224,20 @@ export default {
     },
     handleClickInputFile() {
       this.$refs.fileInputLogo.click();
+    },
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      this.image = new Image();
+      var reader = new FileReader();
+      reader.onload = (e) => {
+        this.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
     },
   },
   mounted() {

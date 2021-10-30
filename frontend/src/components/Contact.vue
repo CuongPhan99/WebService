@@ -3,7 +3,7 @@
     <div class="content-left">
       <div class="list-search">
         <input type="text" value="連絡先を検索する" />
-        <img src="../assets/icon_search.png" alt="">
+        <img src="../assets/images/icon_search.png" alt="">
       </div>
       <div class="list-member">
         <table>
@@ -30,12 +30,12 @@
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -48,12 +48,12 @@
               <td>
                 <div class="tooltip">
                   <button v-on:click="myFunction(showOption)">
-                    <img src="../assets/Group 7264.png" />
+                    <img src="../assets/images/Group 7264.png" />
                   </button>
                   <span v-show="showOption" class="tooltiptext tooltip-bottom">
-                    <a @click="editContact = true"><img src="../assets/icon_edit.png" />編集</a>
-                    <a @click="hideContact = true"><img src="../assets/icon_hide.png" />非表示にする</a>
-                    <a @click="deleteContact = true"><img src="../assets/icon_delete.png" />削除</a>
+                    <a @click="editContact = true"><img src="../assets/images/icon_edit.png" />編集</a>
+                    <a @click="hideContact = true"><img src="../assets/images/icon_hide.png" />非表示にする</a>
+                    <a @click="deleteContact = true"><img src="../assets/images/icon_delete.png" />削除</a>
                   </span>
                 </div>
                 <div>
@@ -68,7 +68,7 @@
                     <div class="contact" v-if="editContact">
                       <div class="title" @click="editContact = false">
                         <h3>基本情報の編集</h3>
-                        <button><img src="../assets/close.png" alt="" /></button>
+                        <button><img src="../assets/images/close.png" alt="" /></button>
                       </div>
                       <div class="main-contact">
                         <div class="full-name">
@@ -105,7 +105,7 @@
                     <div class="contact hide" v-if="hideContact">
                       <div class="title" @click="hideContact = false">
                         <h3>連絡先の非表示</h3>
-                        <button><img src="../assets/close.png" alt="" /></button>
+                        <button><img src="../assets/images/close.png" alt="" /></button>
                       </div>
                       <div class="hide-contact">
                         <div class="question">
@@ -129,7 +129,7 @@
                     <div class="contact hide" v-if="deleteContact">
                       <div class="title" @click="deleteContact = false">
                         <h3>連絡先の削除</h3>
-                        <button><img src="../assets/close.png" alt="" /></button>
+                        <button><img src="../assets/images/close.png" alt="" /></button>
                       </div>
                       <div class="hide-contact">
                         <div class="question">
@@ -147,12 +147,12 @@
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -162,18 +162,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -183,18 +183,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -204,18 +204,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -225,18 +225,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -246,18 +246,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -267,18 +267,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -288,18 +288,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -309,18 +309,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -330,18 +330,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -351,18 +351,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -372,18 +372,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -393,18 +393,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -414,18 +414,18 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
             <tr>
               <td>
                 <div class="item">
                   <div class="item1">
-                    <img src="../assets/profile.png" />
+                    <img src="../assets/images/profile.png" />
                   </div>
                   <div class="item2">
                     <div class="item3">
                       <p>公的 太郎</p>
-                      <img src="../assets/icon_hide_black.png" alt="" />
+                      <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
                       <p>taro_yamada@gmail.com</p>
@@ -435,7 +435,7 @@
               </td>
               <td>所属部署</td>
               <td><button class="company">COMPANY A</button></td>
-              <td><img src="../assets/Group 7264.png" alt="" /></td>
+              <td><img src="../assets/images/Group 7264.png" alt="" /></td>
             </tr>
           </tbody>
         </table>
@@ -443,7 +443,7 @@
     </div>
     <div class="content-right">
       <button class="update">
-        <img src="../assets/Union 6.png" alt="" />
+        <img src="../assets/images/Union 6.png" alt="" />
         <p>契約書を作成する</p>
       </button>
     </div>
