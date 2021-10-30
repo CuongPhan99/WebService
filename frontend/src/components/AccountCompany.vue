@@ -9,7 +9,7 @@
             <label>企業のロゴ</label>
             <!-- <img
               class="image-info"
-              :src="require('../assets/images/' + logo)"
+              :src="require('../assets/images/' + account.logo)"
               alt=""
             /> -->
             <button class="edit" @click="showImage = true">
@@ -27,18 +27,25 @@
               <div class="edit-photo" v-if="showImage">
                 <div class="title">
                   <h3>企業ロゴを変更</h3>
-                  <button @click="showImage = false"><img src="../assets/images/close.png" alt="" /></button>
+                  <button @click="showImage = false">
+                    <img src="../assets/images/close.png" alt="" />
+                  </button>
                 </div>
                 <div class="images">
-                  <!-- <img :src="require('../assets/images/' + logo)" alt="" /> -->
-                  <!-- <img :src="image" /> -->
+                  <img
+                    :src="
+                      image == ''
+                        ? require('../assets/images/' + account.logo)
+                        : image
+                    "
+                  />
                   <div class="upload-image">
                     <img src="../assets/images/icon_upload.png" alt="" />
                     <button v-on:click="handleClickInputFile">
                       画像のアップロード
                     </button>
                     <input
-                    @change="onFileChange"
+                      @change="onFileChange"
                       ref="fileInputLogo"
                       type="file"
                       style="display: none"
@@ -52,7 +59,7 @@
           </div>
           <div class="infomation">
             <label>企業名</label>
-            <p>{{ company_name }}</p>
+            <p>{{ account.company_name }}</p>
             <button class="edit" @click="showName = true">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
@@ -68,7 +75,9 @@
               <div class="edit-name" v-if="showName">
                 <div class="title" @click="showName = false">
                   <h3>企業ロゴを変更</h3>
-                  <button><img src="../assets/images/close.png" alt="" /></button>
+                  <button>
+                    <img src="../assets/images/close.png" alt="" />
+                  </button>
                 </div>
                 <div class="input-name">
                   <label for="">企業名</label>
@@ -81,36 +90,36 @@
           </div>
           <div class="infomation">
             <label>企業住所</label>
-            <p>{{ address_company }}</p>
+            <p>{{ account.address_company }}</p>
             <button class="edit">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>電話番号</label>
-            <p>{{ phone }}</p>
+            <p>{{ account.phone }}</p>
             <button class="edit">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>代表者氏名</label>
-            <p>{{ name }}</p>
+            <p>{{ account.name }}</p>
             <button class="edit">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
           </div>
           <div class="infomation">
             <label>パートナー会社</label>
-            <p>{{ co_partner }}</p>
+            <p>{{ account.co_partner }}</p>
           </div>
           <div class="infomation">
             <label>紹介営業担当者</label>
-            <p>{{ seller_name }}</p>
+            <p>{{ account.seller_name }}</p>
           </div>
           <div class="infomation">
             <label>管理番号</label>
-            <p>{{ check_number }}</p>
+            <p>{{ account.check_number }}</p>
           </div>
           <div class="infomation">
             <label>オリジナル印影</label>
@@ -200,15 +209,7 @@ export default {
       showImage: false,
       showName: false,
       id: this.$route.params.id,
-      logo: "",
-      company_name: "",
-      address_company: "",
-      phone: "",
-      name: "",
-      co_partner: "",
-      seller_name: "",
-      check_number: "",
-      originer_imprint: "",
+      account: [],
       security: "",
       notification: "",
       image: "",
@@ -226,8 +227,7 @@ export default {
     },
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
+      if (!files.length) return;
       this.createImage(files[0]);
     },
     createImage(file) {
@@ -243,19 +243,9 @@ export default {
     axios
       .get("/accounts/" + this.id)
       .then(
-        (response) => (
-          (this.logo = response.data[0].logo),
-          (this.company_name = response.data[0].company_name),
-          (this.address_company = response.data[0].address_company),
-          (this.phone = response.data[0].phone),
-          (this.name = response.data[0].name),
-          (this.co_partner = response.data[0].co_partner),
-          (this.seller_name = response.data[0].seller_name),
-          (this.check_number = response.data[0].check_number),
-          (this.originer_imprint = response.data[0].originer_imprint),
-          (this.security = response.data[0].security),
-          (this.notification = response.data[0].notification)
-        )
+        (response) => (this.account = response.data[0]),
+        (this.security = this.account.security),
+        (this.notification = this.account.notification)
       )
       .catch((error) => console.log(error));
   },
