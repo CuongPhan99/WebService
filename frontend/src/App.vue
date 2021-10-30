@@ -17,19 +17,16 @@
         </div>
         <div class="nav-wrap">
           <ul id="nav-sidebar">
-            <li><a>ホーム</a></li>
-            <li><a>契約書の管理</a></li>
-            <li><a>雛形の管理</a></li>
-            <li>
+            <li v-for="(item, index) in items" v-bind:key="index">
               <a
                 @click="
-                  subNav(activeNav);
-                  changeTab('company');
-                  changeTabChild('');
+                  index === 3 ? subNav(activeNav) : changeTab();
+                  activeClass(index);
                 "
-                :class="{ active: tabContent === 'company' }"
-                >アカウントの管理
+                :class="{ active: tabActive == index }"
+                >{{ item.name }}
                 <img
+                  v-if="index === 3"
                   v-bind:src="
                     activeNav
                       ? require('./assets/icon-on.png')
@@ -38,31 +35,22 @@
                   alt=""
                 />
               </a>
-              <ul v-show="activeNav" class="subnav">
+              <ul v-show="activeNav" class="subnav"> 
                 <li
-                  @click="
-                    changeTabChild('accountCompany');
-                    changeTab('company');
-                  "
-                  :class="{ activeChild: tabContentChild === 'accountCompany' }"
+                  v-for="(child, index) in item.childrens"
+                  v-bind:key="index"
+                  @click="activeChildClass(index)"
+                  :class="{ activeChild: tabActiveChild == index }"
                 >
-                  <a>企業の詳細</a>
+                  <router-link to="/accounts/1">
+                  <a>
+                    {{ child.name }}
+                  </a>
+                  </router-link>
+
                 </li>
-                <li><a href="#">メンバー一覧</a></li>
-                <li><a href="#">グループ</a></li>
-                <li><a href="#">請求書</a></li>
               </ul>
-            </li>
-            <li>
-              <a
-                @click="
-                  changeTab('contact');
-                  changeTabChild('');
-                "
-                :class="{ active: tabContent === 'contact' }"
-                >顧客一覧</a
-              >
-            </li>
+            </li>            
           </ul>
         </div>
       </div>
@@ -112,8 +100,8 @@
       </div>
       <div class="container">
         <div class="main">
-          <AccountCompany v-if="tabContentChild === 'accountCompany'" />
-          <Contact v-if="tabContent === 'contact'" />
+          <AccountCompany v-if="tabActiveChild === 0" />
+          <Contact v-if="tabActive === 4" />
         </div>
       </div>
     </div>
@@ -133,19 +121,37 @@ export default {
   data() {
     return {
       activeNav: false,
-      tabContent: "",
-      tabContentChild: "",
+      tabActive: "",
+      tabActiveChild: "",
+      items: [
+        { name: "ホーム" },
+        { name: "契約書の管理" },
+        { name: "雛形の管理" },
+        {
+          name: ">アカウントの管理",
+          childrens: [
+            { name: "企業の詳細" },
+            { name: "メンバー一覧" },
+            { name: "グループ" },
+            { name: "請求書" },
+          ],
+        },
+        { name: "顧客一覧" },
+      ],
     };
   },
   methods: {
     subNav() {
       this.activeNav = !this.activeNav;
     },
-    changeTab(tab) {
-      this.tabContent = tab;
+    changeTab() {
+      this.activeNav = false;
     },
-    changeTabChild(tab) {
-      this.tabContentChild = tab;
+    activeClass(index) {
+      this.tabActive = index;
+    },
+    activeChildClass(index) {
+      this.tabActiveChild = index;
     },
   },
 };
