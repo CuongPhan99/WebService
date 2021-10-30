@@ -31,8 +31,7 @@
                 </div>
                 <div class="images">
                   <!-- <img :src="require('../assets/images/' + logo)" alt="" /> -->
-                      <!-- <img :src="image" /> -->
-
+                  <!-- <img :src="image" /> -->
                   <div class="upload-image">
                     <img src="../assets/images/icon_upload.png" alt="" />
                     <button v-on:click="handleClickInputFile">
@@ -136,7 +135,7 @@
               <p>二段階認証を要求する</p>
             </label>
             <p>オフ</p>
-            <!-- <img
+            <img
               class="toggle"
               @click="onClick1(security)"
               :src="
@@ -145,7 +144,7 @@
                   : require('../assets/images/toggle-off.png')
               "
               alt=""
-            /> -->
+            />
           </div>
         </div>
       </div>
@@ -156,7 +155,7 @@
           <div class="infomation">
             <label>メール通知を許可する</label>
             <p>オン</p>
-            <!-- <img
+            <img
               class="toggle"
               @click="onClick2(notification)"
               :src="
@@ -165,7 +164,7 @@
                   : require('../assets/images/toggle-off.png')
               "
               alt=""
-            /> -->
+            />
           </div>
         </div>
       </div>
@@ -245,7 +244,6 @@ export default {
       .get("/accounts/" + this.id)
       .then(
         (response) => (
-          console.log(response),
           (this.logo = response.data[0].logo),
           (this.company_name = response.data[0].company_name),
           (this.address_company = response.data[0].address_company),

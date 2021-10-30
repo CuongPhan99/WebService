@@ -25,7 +25,7 @@
                 "
                 :class="{ active: tabActive == index }"
                 >{{ item.name }}
-                <!-- <img
+                <img
                   v-if="index === 3"
                   v-bind:src="
                     activeNav
@@ -33,7 +33,7 @@
                       : require('./assets/images/icon-off.png')
                   "
                   alt=""
-                /> -->
+                />
               </a>
               <ul v-show="activeNav" class="subnav"> 
                 <li
@@ -42,11 +42,9 @@
                   @click="activeChildClass(index)"
                   :class="{ activeChild: tabActiveChild == index }"
                 >
-                  <router-link to="/accounts/1">
                   <a>
                     {{ child.name }}
                   </a>
-                  </router-link>                 
                 </li>
               </ul>
             </li>            
