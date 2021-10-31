@@ -42,7 +42,14 @@
                     />
                   </div>
                 </div>
-                <button v-on:click="updateLogo(); showImage = false" type="submit" class="update">
+                <button
+                  v-on:click="
+                    updateLogo();
+                    showImage = false;
+                  "
+                  type="submit"
+                  class="update"
+                >
                   変更する
                 </button>
               </div>
@@ -65,17 +72,34 @@
             </transition>
             <transition name="slide" appear>
               <div class="edit-name" v-if="showName">
-                <div class="title" @click="showName = false">
+                <div class="title">
                   <h3>企業ロゴを変更</h3>
-                  <button>
+                  <button @click="showName = false">
                     <img src="../assets/images/close.png" alt="" />
                   </button>
                 </div>
-                <div class="input-name">
-                  <label for="">企業名</label>
-                  <input value="〇〇株式会社" type="text" />
-                </div>
-                <button class="update">変更する</button>
+                <form
+                  @submit.prevent="updateCompanyName()"
+                  action=""
+                  method="post"
+                >
+                  <div class="input-name">
+                    <label for="">企業名</label>
+                    <input
+                      id="companyName"
+                      v-model="account.company_name"
+                      name="companyName"
+                      type="text"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="update"
+                    @click="showName = false"
+                  >
+                    変更する
+                  </button>
+                </form>
               </div>
             </transition>
             <!-- ------------ -->
@@ -229,6 +253,12 @@ export default {
     updateLogo() {
       const fd = new FormData();
       fd.append("logo", this.image);
+      axios.post("/accounts/" + this.id, fd);
+      this.$forceUpdate();
+    },
+    updateCompanyName() {
+      const fd = new FormData();
+      fd.append("company_name", this.account.company_name);
       axios.post("/accounts/" + this.id, fd);
     },
   },

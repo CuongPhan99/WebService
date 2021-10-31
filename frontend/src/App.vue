@@ -18,36 +18,50 @@
         <div class="nav-wrap">
           <ul id="nav-sidebar">
             <li v-for="(item, index) in items" v-bind:key="index">
-              <a
-                @click="
-                  index === 3 ? subNav(activeNav) : changeTab();
-                  activeClass(index);
-                "
-                :class="{ active: tabActive == index }"
-                >{{ item.name }}
-                <img
-                  v-if="index === 3"
-                  v-bind:src="
-                    activeNav
-                      ? require('./assets/images/icon-on.png')
-                      : require('./assets/images/icon-off.png')
+              <router-link
+                :to="{
+                  name: 'home',
+                  params: { name: item.name },
+                }"
+              >
+                <a
+                  @click="
+                    index === 3 ? subNav(activeNav) : changeTab();
+                    activeClass(index);
                   "
-                  alt=""
-                />
-              </a>
-              <ul v-show="activeNav" class="subnav"> 
+                  :class="{ active: tabActive == index }"
+                  >{{ item.name }}
+                  <img
+                    v-if="index === 3"
+                    v-bind:src="
+                      activeNav
+                        ? require('./assets/images/icon-on.png')
+                        : require('./assets/images/icon-off.png')
+                    "
+                    alt=""
+                  />
+                </a>
+              </router-link>
+              <ul v-show="activeNav" class="subnav">
                 <li
                   v-for="(child, index) in item.childrens"
                   v-bind:key="index"
                   @click="activeChildClass(index)"
                   :class="{ activeChild: tabActiveChild == index }"
                 >
-                  <a>
-                    {{ child.name }}
-                  </a>
+                  <router-link
+                    :to="{
+                      name: 'accountDetail',
+                      params: { name: child.name, id: 1 },
+                    }"
+                  >
+                    <a>
+                      {{ child.name }}
+                    </a>
+                  </router-link>
                 </li>
               </ul>
-            </li>            
+            </li>
           </ul>
         </div>
       </div>
@@ -119,7 +133,7 @@ export default {
     return {
       activeNav: false,
       tabActive: "",
-      tabActiveChild: "",
+      tabActiveChild: -1,
       items: [
         { name: "ホーム" },
         { name: "契約書の管理" },

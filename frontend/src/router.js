@@ -7,14 +7,13 @@ export default new Router({
   mode: "history",
   routes: [
     {
-      path: "/",
-      alias: "/accounts",
-      name: "accounts",
-      component: () => import("./components/AccountCompany.vue")
+      path: "/:name",
+      name: "home",
+      component: () => import("./App.vue")
     },
     {
-      path: "/accounts/:id",
-      name: "accounts-detail",
+      path: "/:name/:id",
+      name: "accountDetail",
       component: () => import("./components/AccountCompany.vue")
     },
     {
