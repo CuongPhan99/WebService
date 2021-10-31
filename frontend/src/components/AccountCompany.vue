@@ -7,11 +7,7 @@
         <div class="infomations">
           <div class="infomation">
             <label>企業のロゴ</label>
-            <!-- <img
-              class="image-info"
-              :src="require('../assets/images/' + account.logo)"
-              alt=""
-            /> -->
+            <img class="image-info" :src="account.logo" alt="" />
             <button class="edit" @click="showImage = true">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
@@ -32,13 +28,7 @@
                   </button>
                 </div>
                 <div class="images">
-                  <img
-                    :src="
-                      image == ''
-                        ? require('../assets/images/' + account.logo)
-                        : image
-                    "
-                  />
+                  <img :src="image == '' ? account.logo : image" />
                   <div class="upload-image">
                     <img src="../assets/images/icon_upload.png" alt="" />
                     <button v-on:click="handleClickInputFile">
@@ -52,7 +42,9 @@
                     />
                   </div>
                 </div>
-                <button class="update">変更する</button>
+                <button v-on:click="updateLogo(); showImage = false" type="submit" class="update">
+                  変更する
+                </button>
               </div>
             </transition>
             <!-- ----------- -->
@@ -123,11 +115,7 @@
           </div>
           <div class="infomation">
             <label>オリジナル印影</label>
-            <!-- <img
-              class="image-info"
-              :src="require('../assets/images/' + originer_imprint)"
-              alt=""
-            /> -->
+            <img class="image-info" :src="account.originer_imprint" alt="" />
             <button class="edit">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
@@ -231,15 +219,20 @@ export default {
       this.createImage(files[0]);
     },
     createImage(file) {
-      this.image = new Image();
       var reader = new FileReader();
+      var vm = this;
       reader.onload = (e) => {
-        this.image = e.target.result;
+        vm.image = e.target.result;
       };
       reader.readAsDataURL(file);
     },
+    updateLogo() {
+      const fd = new FormData();
+      fd.append("logo", this.image);
+      axios.post("/accounts/" + this.id, fd);
+    },
   },
-  mounted() {
+  created() {
     axios
       .get("/accounts/" + this.id)
       .then(
