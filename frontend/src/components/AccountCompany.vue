@@ -178,11 +178,7 @@
                     <img src="../assets/images/close.png" alt="" />
                   </button>
                 </div>
-                <form
-                  @submit.prevent="updatePhone()"
-                  action=""
-                  method="post"
-                >
+                <form @submit.prevent="updatePhone()" action="" method="post">
                   <div class="input-name">
                     <label for="">電話番号</label>
                     <input
@@ -226,11 +222,7 @@
                     <img src="../assets/images/close.png" alt="" />
                   </button>
                 </div>
-                <form
-                  @submit.prevent="updateName()"
-                  action=""
-                  method="post"
-                >
+                <form @submit.prevent="updateName()" action="" method="post">
                   <div class="input-name">
                     <label for="">代表者氏名</label>
                     <input
@@ -343,9 +335,9 @@
             <p>オフ</p>
             <img
               class="toggle"
-              @click="onClick1(security)"
+              @click="onClick1(account.security)"
               :src="
-                security
+                account.security
                   ? require('../assets/images/toggle-on.png')
                   : require('../assets/images/toggle-off.png')
               "
@@ -363,9 +355,9 @@
             <p>オン</p>
             <img
               class="toggle"
-              @click="onClick2(notification)"
+              @click="onClick2(account.notification)"
               :src="
-                notification
+                account.notification
                   ? require('../assets/images/toggle-on.png')
                   : require('../assets/images/toggle-off.png')
               "
@@ -411,18 +403,22 @@ export default {
       showOriginerImprint: false,
       id: this.$route.params.id,
       account: [],
-      security: "",
-      notification: "",
       image: "",
       originer_imprint: "",
     };
   },
   methods: {
     onClick1() {
-      this.security = !this.security;
+      this.account.security = !this.account.security;
+      const fd = new FormData();
+      fd.append("security", this.account.security);
+      axios.post("/accounts/" + this.id, fd);
     },
     onClick2() {
-      this.notification = !this.notification;
+      this.account.notification = !this.account.notification;
+      const fd = new FormData();
+      fd.append("notification", this.account.notification);
+      axios.post("/accounts/" + this.id, fd);
     },
     handleClickInputFile() {
       this.$refs.fileInputLogo.click();
@@ -481,18 +477,13 @@ export default {
       const fd = new FormData();
       fd.append("originer_imprint", this.originer_imprint);
       axios.post("/accounts/" + this.id, fd);
-    },
+      this.$forceUpdate();
+    }
   },
   mounted() {
     axios
       .get("/accounts/" + this.id)
-      .then(
-        (response) => (
-          (this.account = response.data[0]),
-          (this.security = this.account.security),
-          (this.notification = this.account.notification)
-        )
-      )
+      .then((response) => (this.account = response.data[0]))
       .catch((error) => console.log(error));
   },
 };

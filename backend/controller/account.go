@@ -51,6 +51,8 @@ func UpdateCompany(c echo.Context) error {
 	phone := c.FormValue("phone")
 	name := c.FormValue("name")
 	originer_imprint := c.FormValue("originer_imprint")
+	security := c.FormValue("security")
+	notification := c.FormValue("notification")
 
 	db.First(&accounts, id)
 	if logo != "" {
@@ -70,6 +72,16 @@ func UpdateCompany(c echo.Context) error {
 	}
 	if originer_imprint != "" {
 		accounts.OriginerImprint = originer_imprint
+	}
+	if security == "true" {
+		accounts.Security = true
+	} else if security == "false" {
+		accounts.Security = false
+	}
+	if notification == "true" {
+		accounts.Notification = true
+	} else if notification == "false" {
+		accounts.Notification = false
 	}
 	db.Save(&accounts)
 
