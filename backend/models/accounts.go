@@ -10,7 +10,7 @@ type Accounts struct {
 	CoPartner       string `json:"co_partner"`
 	IntroduceName   string `json:"seller_name"`
 	CheckNumber     string `json:"check_number"`
-	OriginerImprint string `json:"originer_imprint"`
+	OriginalImprint string `json:"original_imprint"`
 	Security        bool   `json:"security"`
 	Notification    bool   `json:"notification"`
 }

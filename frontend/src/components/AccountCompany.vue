@@ -261,37 +261,37 @@
             <img
               class="image-info"
               :src="
-                originer_imprint == ''
-                  ? account.originer_imprint
-                  : originer_imprint
+                original_imprint == ''
+                  ? account.original_imprint
+                  : original_imprint
               "
               alt=""
             />
-            <button class="edit" @click="showOriginerImprint = true">
+            <button class="edit" @click="showOriginalImprint = true">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
-            <!-- PopUp Edit Image Originer Imprint -->
+            <!-- PopUp Edit Image Original Imprint -->
             <transition name="fade" appear>
               <div
                 class="modal-overlay"
-                v-if="showOriginerImprint"
-                @click="showOriginerImprint = false"
+                v-if="showOriginalImprint"
+                @click="showOriginalImprint = false"
               ></div>
             </transition>
             <transition name="slide" appear>
-              <div class="edit-photo" v-if="showOriginerImprint">
+              <div class="edit-photo" v-if="showOriginalImprint">
                 <div class="title">
                   <h3>企業ロゴを変更</h3>
-                  <button @click="showOriginerImprint = false">
+                  <button @click="showOriginalImprint = false">
                     <img src="../assets/images/close.png" alt="" />
                   </button>
                 </div>
                 <div class="images">
                   <img
                     :src="
-                      originer_imprint == ''
-                        ? account.originer_imprint
-                        : originer_imprint
+                      original_imprint == ''
+                        ? account.original_imprint
+                        : original_imprint
                     "
                   />
                   <div class="upload-image">
@@ -300,7 +300,7 @@
                       画像のアップロード
                     </button>
                     <input
-                      @change="onFileOriginerImprintChange"
+                      @change="onFileOriginalImprintChange"
                       ref="fileInputLogo"
                       type="file"
                       style="display: none"
@@ -309,8 +309,8 @@
                 </div>
                 <button
                   v-on:click="
-                    updateOriginerImprint();
-                    showOriginerImprint = false;
+                    updateOriginalImprint();
+                    showOriginalImprint = false;
                   "
                   type="submit"
                   class="update"
@@ -400,11 +400,11 @@ export default {
       showAddressCompany: false,
       showPhone: false,
       showName: false,
-      showOriginerImprint: false,
+      showOriginalImprint: false,
       id: this.$route.params.id,
       account: [],
       image: "",
-      originer_imprint: "",
+      original_imprint: "",
     };
   },
   methods: {
@@ -435,7 +435,7 @@ export default {
       };
       reader.readAsDataURL(file);
     },
-    onFileOriginerImprintChange(e) {
+    onFileOriginalImprintChange(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.createImage2(files[0]);
@@ -443,7 +443,7 @@ export default {
     createImage2(file) {
       var reader = new FileReader();
       reader.onload = (e) => {
-        this.originer_imprint = e.target.result;
+        this.original_imprint = e.target.result;
       };
       reader.readAsDataURL(file);
     },
@@ -473,9 +473,9 @@ export default {
       fd.append("name", this.account.name);
       axios.post("/accounts/" + this.id, fd);
     },
-    updateOriginerImprint() {
+    updateOriginalImprint() {
       const fd = new FormData();
-      fd.append("originer_imprint", this.originer_imprint);
+      fd.append("original_imprint", this.original_imprint);
       axios.post("/accounts/" + this.id, fd);
       this.$forceUpdate();
     }

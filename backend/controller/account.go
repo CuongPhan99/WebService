@@ -50,7 +50,7 @@ func UpdateCompany(c echo.Context) error {
 	address_company := c.FormValue("address_company")
 	phone := c.FormValue("phone")
 	name := c.FormValue("name")
-	originer_imprint := c.FormValue("originer_imprint")
+	original_imprint := c.FormValue("original_imprint")
 	security := c.FormValue("security")
 	notification := c.FormValue("notification")
 
@@ -70,8 +70,8 @@ func UpdateCompany(c echo.Context) error {
 	if name != "" {
 		accounts.Name = name
 	}
-	if originer_imprint != "" {
-		accounts.OriginerImprint = originer_imprint
+	if original_imprint != "" {
+		accounts.OriginalImprint = original_imprint
 	}
 	if security == "true" {
 		accounts.Security = true
