@@ -67,12 +67,7 @@
       </div>
       <div class="footer-menu">
         <ol>
-          <li><a href="#">利用規約</a></li>
-          <li><a href="#">特定商取引法に基づく表記</a></li>
-          <li><a href="#">プライパシーポリシー</a></li>
-          <li><a href="#">運営会社</a></li>
-          <li><a href="#">よくあるご質問</a></li>
-          <li><a href="#">お問い合わせ</a></li>
+          <li v-for="(item, index) in footerItems" :key="index"><a href="#">{{item.name}}</a></li>
           <li>
             <ul class="social-network">
               <img src="./assets/images/Mask Group 60.png" alt="" />
@@ -149,6 +144,14 @@ export default {
         },
         { name: "顧客一覧" },
       ],
+      footerItems: [
+        { name: "利用規約"},
+        { name: "特定商取引法に基づく表記"},
+        { name: "プライパシーポリシー"},
+        { name: "運営会社"},
+        { name: "よくあるご質問"},
+        { name: "お問い合わせ"},
+      ],
     };
   },
   methods: {
@@ -178,6 +181,9 @@ export default {
   outline: none;
   margin: 0;
   padding: 0;
+}
+button, a{
+  cursor: pointer;
 }
 /* Side Bar */
 
@@ -227,7 +233,6 @@ export default {
   color: white;
   background-color: #d64d10;
   margin: 30px 30px 0px 30px;
-  cursor: pointer;
   border: none;
   font-weight: 700;
   font-size: medium;

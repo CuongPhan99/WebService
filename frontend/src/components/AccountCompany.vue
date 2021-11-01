@@ -381,10 +381,14 @@
       </footer>
     </div>
     <div class="content-right">
-      <div class="content-right-item active"><a>企業情報の設定 </a></div>
-      <div class="content-right-item"><a>セキュリティ設定 </a></div>
-      <div class="content-right-item"><a>メール通知設定 </a></div>
-      <div class="content-right-item"><a>アラート通知先の設定 </a></div>
+      <div
+        class="content-right-item"
+        :class="{ active: onActive == index }"
+        v-for="(item, index) in rightItems"
+        :key="index"
+      >
+        <a @click="rightItemActive(index)">{{ item.name }}</a>
+      </div>
     </div>
   </div>
 </template>
@@ -395,6 +399,13 @@ import axios from "axios";
 export default {
   data() {
     return {
+      rightItems: [
+        { name: "企業情報の設定" },
+        { name: "セキュリティ設定" },
+        { name: "メール通知設定" },
+        { name: "メール通知設定" },
+      ],
+      onActive: "",
       showImage: false,
       showCompanyName: false,
       showAddressCompany: false,
@@ -408,17 +419,8 @@ export default {
     };
   },
   methods: {
-    onClick1() {
-      this.account.security = !this.account.security;
-      const fd = new FormData();
-      fd.append("security", this.account.security);
-      axios.post("/accounts/" + this.id, fd);
-    },
-    onClick2() {
-      this.account.notification = !this.account.notification;
-      const fd = new FormData();
-      fd.append("notification", this.account.notification);
-      axios.post("/accounts/" + this.id, fd);
+    rightItemActive(index) {
+      this.onActive = index;
     },
     handleClickInputFile() {
       this.$refs.fileInputLogo.click();
@@ -478,7 +480,19 @@ export default {
       fd.append("original_imprint", this.original_imprint);
       axios.post("/accounts/" + this.id, fd);
       this.$forceUpdate();
-    }
+    },
+    onClick1() {
+      this.account.security = !this.account.security;
+      const fd = new FormData();
+      fd.append("security", this.account.security);
+      axios.post("/accounts/" + this.id, fd);
+    },
+    onClick2() {
+      this.account.notification = !this.account.notification;
+      const fd = new FormData();
+      fd.append("notification", this.account.notification);
+      axios.post("/accounts/" + this.id, fd);
+    },
   },
   mounted() {
     axios
@@ -643,7 +657,6 @@ export default {
   color: white;
   background-color: #d64d10;
   margin: 0 50px 0 50px;
-  cursor: pointer;
   border: none;
   font-weight: 700;
 }

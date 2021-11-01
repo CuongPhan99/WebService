@@ -513,7 +513,6 @@ td:nth-child(4) {
 }
 .company {
   background-color: white;
-  cursor: pointer;
   border: 1px solid #dddddd;
   border-radius: 15px;
   width: 150px;
@@ -650,7 +649,6 @@ th:nth-child(1) {
   height: 30px;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
 }
 .tooltip .tooltiptext {
   display: grid;
@@ -777,7 +775,6 @@ th:nth-child(1) {
   height: 50px;
   color: white;
   background-color: #d64d10;
-  cursor: pointer;
   border: none;
   font-weight: 700;
 }
@@ -819,7 +816,6 @@ th:nth-child(1) {
   color: white;
   background-color: #d64d10;
   margin: 0px 30px 0px 30px;
-  cursor: pointer;
   border: none;
   font-weight: 700;
   font-size: medium;
