@@ -224,7 +224,7 @@ export default {
       account: [],
       security: "",
       notification: "",
-      image: "",
+      image: ""
     };
   },
   methods: {
@@ -244,9 +244,8 @@ export default {
     },
     createImage(file) {
       var reader = new FileReader();
-      var vm = this;
       reader.onload = (e) => {
-        vm.image = e.target.result;
+        this.image = e.target.result;
       };
       reader.readAsDataURL(file);
     },
@@ -260,18 +259,20 @@ export default {
       const fd = new FormData();
       fd.append("company_name", this.account.company_name);
       axios.post("/accounts/" + this.id, fd);
-    },
+    }
   },
-  created() {
+  mounted() {
     axios
       .get("/accounts/" + this.id)
       .then(
-        (response) => (this.account = response.data[0]),
-        (this.security = this.account.security),
-        (this.notification = this.account.notification)
+        response => (
+          (this.account = response.data[0]),
+          (this.security = this.account.security),
+          (this.notification = this.account.notification)
+        )
       )
-      .catch((error) => console.log(error));
-  },
+      .catch(error => console.log(error));
+  }
 };
 </script>
 

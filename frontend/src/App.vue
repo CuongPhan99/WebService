@@ -160,6 +160,7 @@ export default {
     },
     activeClass(index) {
       this.tabActive = index;
+      this.tabActiveChild = -1;
     },
     activeChildClass(index) {
       this.tabActiveChild = index;
