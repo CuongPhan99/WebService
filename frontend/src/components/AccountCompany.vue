@@ -7,7 +7,11 @@
         <div class="infomations">
           <div class="infomation">
             <label>企業のロゴ</label>
-            <img class="image-info" :src="account.logo" alt="" />
+            <img
+              class="image-info"
+              :src="image == '' ? account.logo : image"
+              alt=""
+            />
             <button class="edit" @click="showImage = true">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
@@ -59,22 +63,22 @@
           <div class="infomation">
             <label>企業名</label>
             <p>{{ account.company_name }}</p>
-            <button class="edit" @click="showName = true">
+            <button class="edit" @click="showCompanyName = true">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
-            <!-- PopUp Edit Name -->
+            <!-- PopUp Edit Company Name -->
             <transition name="fade" appear>
               <div
                 class="modal-overlay"
-                v-if="showName"
-                @click="showName = false"
+                v-if="showCompanyName"
+                @click="showCompanyName = false"
               ></div>
             </transition>
             <transition name="slide" appear>
-              <div class="edit-name" v-if="showName">
+              <div class="edit-name" v-if="showCompanyName">
                 <div class="title">
-                  <h3>企業ロゴを変更</h3>
-                  <button @click="showName = false">
+                  <h3>企業名の変更</h3>
+                  <button @click="showCompanyName = false">
                     <img src="../assets/images/close.png" alt="" />
                   </button>
                 </div>
@@ -95,7 +99,7 @@
                   <button
                     type="submit"
                     class="update"
-                    @click="showName = false"
+                    @click="showCompanyName = false"
                   >
                     変更する
                   </button>
@@ -107,23 +111,146 @@
           <div class="infomation">
             <label>企業住所</label>
             <p>{{ account.address_company }}</p>
-            <button class="edit">
+            <button class="edit" @click="showAddressCompany = true">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
+            <!-- PopUp Edit Address Company -->
+            <transition name="fade" appear>
+              <div
+                class="modal-overlay"
+                v-if="showAddressCompany"
+                @click="showAddressCompany = false"
+              ></div>
+            </transition>
+            <transition name="slide" appear>
+              <div class="edit-name" v-if="showAddressCompany">
+                <div class="title">
+                  <h3>企業名の変更</h3>
+                  <button @click="showAddressCompany = false">
+                    <img src="../assets/images/close.png" alt="" />
+                  </button>
+                </div>
+                <form
+                  @submit.prevent="updateAddressCompany()"
+                  action=""
+                  method="post"
+                >
+                  <div class="input-name">
+                    <label for="">企業住所</label>
+                    <input
+                      id="companyName"
+                      v-model="account.address_company"
+                      name="companyName"
+                      type="text"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="update"
+                    @click="showAddressCompany = false"
+                  >
+                    変更する
+                  </button>
+                </form>
+              </div>
+            </transition>
+            <!-- ------------ -->
           </div>
           <div class="infomation">
             <label>電話番号</label>
             <p>{{ account.phone }}</p>
-            <button class="edit">
+            <button class="edit" @click="showPhone = true">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
+            <!-- PopUp Edit Phone -->
+            <transition name="fade" appear>
+              <div
+                class="modal-overlay"
+                v-if="showPhone"
+                @click="showPhone = false"
+              ></div>
+            </transition>
+            <transition name="slide" appear>
+              <div class="edit-name" v-if="showPhone">
+                <div class="title">
+                  <h3>企業名の変更</h3>
+                  <button @click="showPhone = false">
+                    <img src="../assets/images/close.png" alt="" />
+                  </button>
+                </div>
+                <form
+                  @submit.prevent="updatePhone()"
+                  action=""
+                  method="post"
+                >
+                  <div class="input-name">
+                    <label for="">電話番号</label>
+                    <input
+                      id="companyName"
+                      v-model="account.phone"
+                      name="companyName"
+                      type="text"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="update"
+                    @click="showPhone = false"
+                  >
+                    変更する
+                  </button>
+                </form>
+              </div>
+            </transition>
+            <!-- ------------ -->
           </div>
           <div class="infomation">
             <label>代表者氏名</label>
             <p>{{ account.name }}</p>
-            <button class="edit">
+            <button class="edit" @click="showName = true">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
+            <!-- PopUp Edit Name -->
+            <transition name="fade" appear>
+              <div
+                class="modal-overlay"
+                v-if="showName"
+                @click="showName = false"
+              ></div>
+            </transition>
+            <transition name="slide" appear>
+              <div class="edit-name" v-if="showName">
+                <div class="title">
+                  <h3>企業名の変更</h3>
+                  <button @click="showName = false">
+                    <img src="../assets/images/close.png" alt="" />
+                  </button>
+                </div>
+                <form
+                  @submit.prevent="updateName()"
+                  action=""
+                  method="post"
+                >
+                  <div class="input-name">
+                    <label for="">代表者氏名</label>
+                    <input
+                      id="companyName"
+                      v-model="account.name"
+                      name="companyName"
+                      type="text"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="update"
+                    @click="showName = false"
+                  >
+                    変更する
+                  </button>
+                </form>
+              </div>
+            </transition>
+            <!-- ------------ -->
           </div>
           <div class="infomation">
             <label>パートナー会社</label>
@@ -139,10 +266,68 @@
           </div>
           <div class="infomation">
             <label>オリジナル印影</label>
-            <img class="image-info" :src="account.originer_imprint" alt="" />
-            <button class="edit">
+            <img
+              class="image-info"
+              :src="
+                originer_imprint == ''
+                  ? account.originer_imprint
+                  : originer_imprint
+              "
+              alt=""
+            />
+            <button class="edit" @click="showOriginerImprint = true">
               <img src="../assets/images/edit.png" alt="" /><label>編集</label>
             </button>
+            <!-- PopUp Edit Image Originer Imprint -->
+            <transition name="fade" appear>
+              <div
+                class="modal-overlay"
+                v-if="showOriginerImprint"
+                @click="showOriginerImprint = false"
+              ></div>
+            </transition>
+            <transition name="slide" appear>
+              <div class="edit-photo" v-if="showOriginerImprint">
+                <div class="title">
+                  <h3>企業ロゴを変更</h3>
+                  <button @click="showOriginerImprint = false">
+                    <img src="../assets/images/close.png" alt="" />
+                  </button>
+                </div>
+                <div class="images">
+                  <img
+                    :src="
+                      originer_imprint == ''
+                        ? account.originer_imprint
+                        : originer_imprint
+                    "
+                  />
+                  <div class="upload-image">
+                    <img src="../assets/images/icon_upload.png" alt="" />
+                    <button v-on:click="handleClickInputFile">
+                      画像のアップロード
+                    </button>
+                    <input
+                      @change="onFileOriginerImprintChange"
+                      ref="fileInputLogo"
+                      type="file"
+                      style="display: none"
+                    />
+                  </div>
+                </div>
+                <button
+                  v-on:click="
+                    updateOriginerImprint();
+                    showOriginerImprint = false;
+                  "
+                  type="submit"
+                  class="update"
+                >
+                  変更する
+                </button>
+              </div>
+            </transition>
+            <!-- ----------- -->
           </div>
         </div>
       </div>
@@ -219,12 +404,17 @@ export default {
   data() {
     return {
       showImage: false,
+      showCompanyName: false,
+      showAddressCompany: false,
+      showPhone: false,
       showName: false,
+      showOriginerImprint: false,
       id: this.$route.params.id,
       account: [],
       security: "",
       notification: "",
-      image: ""
+      image: "",
+      originer_imprint: "",
     };
   },
   methods: {
@@ -249,6 +439,18 @@ export default {
       };
       reader.readAsDataURL(file);
     },
+    onFileOriginerImprintChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage2(files[0]);
+    },
+    createImage2(file) {
+      var reader = new FileReader();
+      reader.onload = (e) => {
+        this.originer_imprint = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
     updateLogo() {
       const fd = new FormData();
       fd.append("logo", this.image);
@@ -259,20 +461,40 @@ export default {
       const fd = new FormData();
       fd.append("company_name", this.account.company_name);
       axios.post("/accounts/" + this.id, fd);
-    }
+    },
+    updateAddressCompany() {
+      const fd = new FormData();
+      fd.append("address_company", this.account.address_company);
+      axios.post("/accounts/" + this.id, fd);
+    },
+    updatePhone() {
+      const fd = new FormData();
+      fd.append("phone", this.account.phone);
+      axios.post("/accounts/" + this.id, fd);
+    },
+    updateName() {
+      const fd = new FormData();
+      fd.append("name", this.account.name);
+      axios.post("/accounts/" + this.id, fd);
+    },
+    updateOriginerImprint() {
+      const fd = new FormData();
+      fd.append("originer_imprint", this.originer_imprint);
+      axios.post("/accounts/" + this.id, fd);
+    },
   },
   mounted() {
     axios
       .get("/accounts/" + this.id)
       .then(
-        response => (
+        (response) => (
           (this.account = response.data[0]),
           (this.security = this.account.security),
           (this.notification = this.account.notification)
         )
       )
-      .catch(error => console.log(error));
-  }
+      .catch((error) => console.log(error));
+  },
 };
 </script>
 
