@@ -1,7 +1,7 @@
 package model
 
 type Accounts struct {
-	Id              int    `json:"id" pg:"type:serial"`
+	Id              uint   `json:"id" pg:"type:serial"`
 	Logo            string `json:"logo"`
 	CompanyName     string `json:"company_name"`
 	AddressCompany  string `json:"address_company"`
