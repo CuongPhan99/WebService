@@ -3,7 +3,7 @@
     <div class="content-left">
       <div class="list-search">
         <input type="text" value="連絡先を検索する" />
-        <img src="../assets/images/icon_search.png" alt="">
+        <img src="../assets/images/icon_search.png" alt="" />
       </div>
       <div class="list-member">
         <table>
@@ -26,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="(contact, index) in customers" :key="index">
               <td>
                 <div class="item">
                   <div class="item1">
@@ -34,11 +34,14 @@
                   </div>
                   <div class="item2">
                     <div class="item3">
-                      <p>公的 太郎</p>
+                      <p>
+                        <span>{{ contact.last_name }}</span>
+                        <span>{{ contact.first_name }}</span>
+                      </p>
                       <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
-                      <p>taro_yamada@gmail.com</p>
+                      <p>{{ contact.email }}</p>
                     </div>
                   </div>
                 </div>
@@ -47,13 +50,21 @@
               <td><button class="company">COMPANY A</button></td>
               <td>
                 <div class="tooltip">
-                  <button v-on:click="myFunction(showOption)">
+                  <button v-on:click="myFunction(index)">
                     <img src="../assets/images/Group 7264.png" />
                   </button>
-                  <span v-show="showOption" class="tooltiptext tooltip-bottom">
-                    <a @click="editContact = true"><img src="../assets/images/icon_edit.png" />編集</a>
-                    <a @click="hideContact = true"><img src="../assets/images/icon_hide.png" />非表示にする</a>
-                    <a @click="deleteContact = true"><img src="../assets/images/icon_delete.png" />削除</a>
+                  <span v-show="showOption == index" class="tooltiptext tooltip-bottom">
+                    <a @click="editContact = true"
+                      ><img src="../assets/images/icon_edit.png" />編集</a
+                    >
+                    <a @click="hideContact = true"
+                      ><img
+                        src="../assets/images/icon_hide.png"
+                      />非表示にする</a
+                    >
+                    <a @click="deleteContact = true"
+                      ><img src="../assets/images/icon_delete.png" />削除</a
+                    >
                   </span>
                 </div>
                 <div>
@@ -68,25 +79,27 @@
                     <div class="contact" v-if="editContact">
                       <div class="title" @click="editContact = false">
                         <h3>基本情報の編集</h3>
-                        <button><img src="../assets/images/close.png" alt="" /></button>
+                        <button>
+                          <img src="../assets/images/close.png" alt="" />
+                        </button>
                       </div>
                       <div class="main-contact">
                         <div class="full-name">
                           <label><span>【必須】</span>氏名</label>
-                          <input type="text" value="公的"/>
-                          <input type="text" value="太郎"/>
+                          <input type="text" value="公的" />
+                          <input type="text" value="太郎" />
                         </div>
                         <div class="email">
                           <label><span>【必須】</span>メールアドレス</label>
-                          <input type="text" value="taro_yamada@gmail.com"/>
+                          <input type="text" value="taro_yamada@gmail.com" />
                         </div>
                         <div class="company-name">
                           <label>（任意）企業名</label>
-                          <input type="text" value="COMPANY A"/>
+                          <input type="text" value="COMPANY A" />
                         </div>
                         <div class="address">
                           <label>（任意）所属部署/グループ </label>
-                          <input type="text" value="所属部署"/>
+                          <input type="text" value="所属部署" />
                         </div>
                         <button class="edit-submit">変更する</button>
                       </div>
@@ -105,12 +118,19 @@
                     <div class="contact hide" v-if="hideContact">
                       <div class="title" @click="hideContact = false">
                         <h3>連絡先の非表示</h3>
-                        <button><img src="../assets/images/close.png" alt="" /></button>
+                        <button>
+                          <img src="../assets/images/close.png" alt="" />
+                        </button>
                       </div>
                       <div class="hide-contact">
                         <div class="question">
-                          <p><span>公的</span> <span>太郎</span>を非表示にしますか？</p>
-                          <p>連絡先は削除されず、一覧に表示されなくなります。</p>
+                          <p>
+                            <span>公的</span>
+                            <span>太郎</span>を非表示にしますか？
+                          </p>
+                          <p>
+                            連絡先は削除されず、一覧に表示されなくなります。
+                          </p>
                         </div>
                         <button class="edit-submit">非表示にする</button>
                       </div>
@@ -129,11 +149,16 @@
                     <div class="contact hide" v-if="deleteContact">
                       <div class="title" @click="deleteContact = false">
                         <h3>連絡先の削除</h3>
-                        <button><img src="../assets/images/close.png" alt="" /></button>
+                        <button>
+                          <img src="../assets/images/close.png" alt="" />
+                        </button>
                       </div>
                       <div class="hide-contact">
                         <div class="question">
-                          <p><span>公的</span> <span>太郎</span>を削除してもよろしいですか？</p>
+                          <p>
+                            <span>公的</span>
+                            <span>太郎</span>を削除してもよろしいですか？
+                          </p>
                           <p>削除すると元に戻すことはできません。</p>
                         </div>
                         <button class="edit-submit">削除する</button>
@@ -142,7 +167,7 @@
                   </transition>
                 </div>
               </td>
-            </tr>           
+            </tr>
           </tbody>
         </table>
       </div>
@@ -157,19 +182,28 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
-      showOption: false,
+      showOption: -1,
       editContact: false,
       hideContact: false,
       deleteContact: false,
+      customers: [],
     };
   },
   methods: {
-    myFunction() {
-      this.showOption = !this.showOption;
+    myFunction(index) {
+      this.showOption = index;
     },
+  },
+  mounted() {
+    axios
+      .get("/customers")
+      .then((response) => (this.customers = response.data))
+      .catch((error) => console.log(error));
   },
 };
 </script>
@@ -201,23 +235,62 @@ export default {
   border-radius: 5px;
   background-color: #fafafa;
 }
-.list-search img{
+.list-search img {
   position: absolute;
   right: 15px;
   margin: 15px auto;
 }
 /* List Item */
+.list-member {
+  margin-top: 50px;
+}
+table {
+  display: grid;
+  border-collapse: collapse;
+  min-width: 100%;
+  grid-template-columns:
+    minmax(150px, 1.67fr)
+    minmax(150px, 1fr)
+    minmax(150px, 1fr)
+    minmax(150px, 1.67fr);
+}
+thead,
+tbody,
+tr {
+  display: contents;
+}
+th,
 td {
-  text-align: center;
-  height: 65px;
+  display: grid;
+  place-items: center;
   font-size: 12px;
   font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-td:nth-child(4) {
-  text-align: right;
-  padding-right: 20px;
+th {
+  position: sticky;
+  top: 220px;
+  padding-top: 10px;
+  background-color: white;
+  color: #564c7e;
+  border-bottom: 4px solid #201a39;
+  z-index: 90;
 }
-.company {
+th:first-child,
+td:first-child {
+  justify-content: left;
+  padding-left: 20px;
+}
+th:last-child,
+td:last-child {
+  justify-content: right;
+}
+td {
+  padding: 2px;
+  border-bottom: 1px solid #dddddd;
+}
+td .company {
   background-color: white;
   border: 1px solid #dddddd;
   border-radius: 15px;
@@ -229,12 +302,10 @@ td:nth-child(4) {
   height: 40px;
 }
 .item1 {
-  margin: auto 20px;
+  margin-right: 20px;
   height: 40px;
 }
-.item1 > img {
-  height: 40px;
-}
+.item1 > img,
 .item2 {
   height: 40px;
 }
@@ -245,7 +316,6 @@ td:nth-child(4) {
 .item3 > p {
   margin: 0;
   text-align: left;
-  width: 70px;
   font-size: 14px;
   font-weight: 700;
   color: #222222;
@@ -254,53 +324,10 @@ td:nth-child(4) {
   margin: 0;
   text-align: left;
   width: 70px;
-  font-size: 14px;
-  font-weight: 500;
   color: #666666;
 }
-/* Title List Item */
-.list-member table{
-  margin-top: 50px;
-  border-collapse: collapse;
-}
-.list-member thead{
-  position: fixed;
-  margin-right: 300px;
-  background-color: white;
-  z-index: 90;
-}
-.list-member tbody{
-    display: inline-block;
-    margin-top: 40px;
-}
-.list-member th {
-  border-bottom: 4px solid #201a39;
-}
-.list-member td {
-  border-bottom: 1px solid #dddddd;
-}
-.list-member > td > img {
-  width: 30px;
-  height: 30px;
-}
-table{
-  table-layout: fixed;
-  width: 100%;
-}
-th{
-  color: #564c7e;
-  font-size: 12px;
-  font-weight: 500;
-  width: 500px;
-}
-td{
-  font-size: 14px;
-  width: 500px;
-}
-th:nth-child(1) {
-  text-align: left;
-  padding-left: 20px;
-}
+
+/* In put check all */
 .check {
   display: flex;
   float: right;
@@ -354,6 +381,7 @@ th:nth-child(1) {
   height: 30px;
   border: none;
   border-radius: 5px;
+  z-index: 89;
 }
 .tooltip .tooltiptext {
   display: grid;
@@ -365,8 +393,8 @@ th:nth-child(1) {
   padding: 5px 0;
   border: 1px solid rgb(0, 0, 0, 0.2);
   border-radius: 6px;
-  z-index: 1;
   box-shadow: 0 -5px 3px -2px rgb(0, 0, 0, 0.2);
+  z-index: 88;
 }
 
 .tooltip-bottom {
@@ -392,42 +420,42 @@ th:nth-child(1) {
   font-size: 14px;
   font-weight: 500;
 }
-.tooltip .tooltip-bottom img{
+.tooltip .tooltip-bottom img {
   margin: 20px;
 }
 .tooltip .tooltip-bottom a:nth-child(3) {
   color: #d00d41;
 }
 /* PopUp Edit Contact */
-.main-contact{
+.main-contact {
   display: flex;
   margin: 50px;
 }
-.main-contact > div{
+.main-contact > div {
   margin-bottom: 20px;
   text-align: left;
   display: flex;
   flex-direction: column;
 }
-.main-contact .full-name{
+.main-contact .full-name {
   display: grid;
   grid-column-gap: 10px;
 }
-.main-contact label{
-  color: #564C7E;
+.main-contact label {
+  color: #564c7e;
   grid-column: 1 / span 2;
 }
-.main-contact span{
-  color: #D64D10;
+.main-contact span {
+  color: #d64d10;
 }
 
-.main-contact input{
+.main-contact input {
   padding: 15px;
   height: 50px;
   color: #222222;
   font-size: 14px;
   font-weight: 500;
-  border: 1px solid #BBBBBB;
+  border: 1px solid #bbbbbb;
   border-radius: 5px;
 }
 .modal-overlay {
@@ -436,8 +464,8 @@ th:nth-child(1) {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 98;
   background-color: #222222;
+  z-index: 98;
 }
 .contact {
   position: fixed;
@@ -484,25 +512,25 @@ th:nth-child(1) {
   font-weight: 700;
 }
 /* PopUp Hide, Delete Contact */
-.contact.hide{
+.contact.hide {
   height: 328px;
 }
-.hide-contact{
+.hide-contact {
   margin: 50px;
 }
-.hide-contact .question{
+.hide-contact .question {
   margin: 50px;
   text-align: center;
 }
-.hide-contact .question p{
+.hide-contact .question p {
   margin: 10px;
   font-size: 14px;
   font-weight: 500;
   color: #666666;
 }
-.hide-contact .question span{
+.hide-contact .question span {
   margin-left: 10px;
-  color: #564C7E;
+  color: #564c7e;
 }
 
 /* PopUp Delete Contact */
