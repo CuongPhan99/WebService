@@ -67,7 +67,9 @@
       </div>
       <div class="footer-menu">
         <ol>
-          <li v-for="(item, index) in footerItems" :key="index"><a href="#">{{item.name}}</a></li>
+          <li v-for="(item, index) in footerItems" :key="index">
+            <a href="#">{{ item.name }}</a>
+          </li>
           <li>
             <ul class="social-network">
               <img src="./assets/images/Mask Group 60.png" alt="" />
@@ -145,12 +147,12 @@ export default {
         { name: "顧客一覧" },
       ],
       footerItems: [
-        { name: "利用規約"},
-        { name: "特定商取引法に基づく表記"},
-        { name: "プライパシーポリシー"},
-        { name: "運営会社"},
-        { name: "よくあるご質問"},
-        { name: "お問い合わせ"},
+        { name: "利用規約" },
+        { name: "特定商取引法に基づく表記" },
+        { name: "プライパシーポリシー" },
+        { name: "運営会社" },
+        { name: "よくあるご質問" },
+        { name: "お問い合わせ" },
       ],
     };
   },
@@ -182,7 +184,8 @@ export default {
   margin: 0;
   padding: 0;
 }
-button, a{
+button,
+a {
   cursor: pointer;
 }
 /* Side Bar */
@@ -340,6 +343,7 @@ button, a{
 }
 #nav-sidebar li a {
   display: flex;
+  width: 100%;
   color: #ffffff;
   text-decoration: none;
   line-height: 40px;

@@ -34,10 +34,10 @@
                   </div>
                   <div class="item2">
                     <div class="item3">
-                      <p>
+                      <label>
                         <span>{{ contact.last_name }}</span>
                         <span>{{ contact.first_name }}</span>
-                      </p>
+                      </label>
                       <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
@@ -53,7 +53,7 @@
                   <button v-on:click="myFunction(index)">
                     <img src="../assets/images/Group 7264.png" />
                   </button>
-                  <span v-show="showOption == index" class="tooltiptext tooltip-bottom">
+                  <span v-show="showOption == index && show" class="tooltiptext tooltip-bottom">
                     <a @click="editContact = true"
                       ><img src="../assets/images/icon_edit.png" />編集</a
                     >
@@ -188,6 +188,7 @@ export default {
   data() {
     return {
       showOption: -1,
+      show : false,
       editContact: false,
       hideContact: false,
       deleteContact: false,
@@ -197,6 +198,7 @@ export default {
   methods: {
     myFunction(index) {
       this.showOption = index;
+      this.show = !this.show;
     },
   },
   mounted() {
@@ -286,6 +288,9 @@ th:last-child,
 td:last-child {
   justify-content: right;
 }
+td:last-child{
+  padding-right: 20px;
+}
 td {
   padding: 2px;
   border-bottom: 1px solid #dddddd;
@@ -313,12 +318,15 @@ td .company {
   display: grid;
   grid-template-columns: auto auto;
 }
-.item3 > p {
+.item3 > label {
   margin: 0;
   text-align: left;
   font-size: 14px;
   font-weight: 700;
   color: #222222;
+}
+.item3 > label > span{
+  margin-right: 10px;
 }
 .item4 > p {
   margin: 0;
