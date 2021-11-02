@@ -26,23 +26,23 @@ func GetAccounts(c echo.Context) error {
 
 func GetRepoAccountById(c echo.Context) ([]model.Accounts, error) {
 	db := storage.GetDBInstance()
-	accounts := []model.Accounts{}
+	account := []model.Accounts{}
 	id := c.Param("id")
 
-	if err := db.First(&accounts, "id = ?", id).Error; err != nil {
+	if err := db.First(&account, "id = ?", id).Error; err != nil {
 		return nil, err
 	}
-	return accounts, nil
+	return account, nil
 }
 
 func GetAccountById(c echo.Context) error {
-	accounts, _ := GetRepoAccountById(c)
-	return c.JSON(http.StatusOK, accounts)
+	account, _ := GetRepoAccountById(c)
+	return c.JSON(http.StatusOK, account)
 }
 
 func UpdateCompany(c echo.Context) error {
 	db := storage.GetDBInstance()
-	accounts := &model.Accounts{}
+	account := &model.Accounts{}
 
 	id := c.Param("id")
 	logo := c.FormValue("logo")
@@ -54,39 +54,39 @@ func UpdateCompany(c echo.Context) error {
 	security := c.FormValue("security")
 	notification := c.FormValue("notification")
 
-	db.First(&accounts, id)
+	db.First(&account, id)
 	if logo != "" {
-		accounts.Logo = logo
+		account.Logo = logo
 	}
 	if company_name != "" {
-		accounts.CompanyName = company_name
+		account.CompanyName = company_name
 	}
 	if address_company != "" {
-		accounts.AddressCompany = address_company
+		account.AddressCompany = address_company
 	}
 	if phone != "" {
-		accounts.Phone = phone
+		account.Phone = phone
 	}
 	if name != "" {
-		accounts.Name = name
+		account.Name = name
 	}
 	if original_imprint != "" {
-		accounts.OriginalImprint = original_imprint
+		account.OriginalImprint = original_imprint
 	}
 	if security == "true" {
-		accounts.Security = true
+		account.Security = true
 	} else if security == "false" {
-		accounts.Security = false
+		account.Security = false
 	}
 	if notification == "true" {
-		accounts.Notification = true
+		account.Notification = true
 	} else if notification == "false" {
-		accounts.Notification = false
+		account.Notification = false
 	}
-	db.Save(&accounts)
+	db.Save(&account)
 
-	if accounts == nil {
+	if account == nil {
 		return echo.NewHTTPError(http.StatusNotFound, "user not found")
 	}
-	return c.JSON(http.StatusOK, accounts)
+	return c.JSON(http.StatusOK, account)
 }

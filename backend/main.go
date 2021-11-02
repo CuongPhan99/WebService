@@ -14,13 +14,15 @@ func main() {
 	// Routes
 	e.GET("/accounts", controller.GetAccounts)
 
-	e.GET("/accounts/:id", controller.GetAccountById)
+	e.GET("/account/:id", controller.GetAccountById)
 
-	e.POST("/accounts/:id", controller.UpdateCompany)
+	e.POST("/account/:id", controller.UpdateCompany)
 
 	e.GET("/customers", controller.GetCustomers)
 
-	e.POST("/customers/add", controller.AddCustomer)
+	e.POST("/customer/add", controller.AddCustomer)
+
+	e.GET("/customer/:id", controller.GetCustomerById)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))

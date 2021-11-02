@@ -452,51 +452,51 @@ export default {
     updateLogo() {
       const fd = new FormData();
       fd.append("logo", this.image);
-      axios.post("/accounts/" + this.id, fd);
+      axios.post("/account/" + this.id, fd);
       this.$forceUpdate();
     },
     updateCompanyName() {
       const fd = new FormData();
       fd.append("company_name", this.account.company_name);
-      axios.post("/accounts/" + this.id, fd);
+      axios.post("/account/" + this.id, fd);
     },
     updateAddressCompany() {
       const fd = new FormData();
       fd.append("address_company", this.account.address_company);
-      axios.post("/accounts/" + this.id, fd);
+      axios.post("/account/" + this.id, fd);
     },
     updatePhone() {
       const fd = new FormData();
       fd.append("phone", this.account.phone);
-      axios.post("/accounts/" + this.id, fd);
+      axios.post("/account/" + this.id, fd);
     },
     updateName() {
       const fd = new FormData();
       fd.append("name", this.account.name);
-      axios.post("/accounts/" + this.id, fd);
+      axios.post("/account/" + this.id, fd);
     },
     updateOriginalImprint() {
       const fd = new FormData();
       fd.append("original_imprint", this.original_imprint);
-      axios.post("/accounts/" + this.id, fd);
+      axios.post("/account/" + this.id, fd);
       this.$forceUpdate();
     },
     onClick1() {
       this.account.security = !this.account.security;
       const fd = new FormData();
       fd.append("security", this.account.security);
-      axios.post("/accounts/" + this.id, fd);
+      axios.post("/account/" + this.id, fd);
     },
     onClick2() {
       this.account.notification = !this.account.notification;
       const fd = new FormData();
       fd.append("notification", this.account.notification);
-      axios.post("/accounts/" + this.id, fd);
+      axios.post("/account/" + this.id, fd);
     },
   },
   mounted() {
     axios
-      .get("/accounts/" + this.id)
+      .get("/account/" + this.id)
       .then((response) => (this.account = response.data[0]))
       .catch((error) => console.log(error));
   },

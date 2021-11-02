@@ -40,3 +40,19 @@ func AddCustomer(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, &customer)
 }
+
+func GetRepoCustomerById(c echo.Context) ([]model.Customers, error) {
+	db := storage.GetDBInstance()
+	customer := []model.Customers{}
+	id := c.Param("id")
+
+	if err := db.First(&customer, "id = ?", id).Error; err != nil {
+		return nil, err
+	}
+	return customer, nil
+}
+
+func GetCustomerById(c echo.Context) error {
+	customer, _ := GetRepoCustomerById(c)
+	return c.JSON(http.StatusOK, customer)
+}
