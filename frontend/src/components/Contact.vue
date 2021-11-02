@@ -47,13 +47,16 @@
                 </div>
               </td>
               <td>所属部署</td>
-              <td><button class="company">COMPANY A</button></td>
+              <td><button class="company">{{contact.company_name}}</button></td>
               <td>
                 <div class="tooltip">
                   <button v-on:click="myFunction(index)">
                     <img src="../assets/images/Group 7264.png" />
                   </button>
-                  <span v-show="showOption == index && show" class="tooltiptext tooltip-bottom">
+                  <span
+                    v-show="showOption == index && show"
+                    class="tooltiptext tooltip-bottom"
+                  >
                     <a @click="editContact = true"
                       ><img src="../assets/images/icon_edit.png" />編集</a
                     >
@@ -173,11 +176,50 @@
       </div>
     </div>
     <div class="content-right">
-      <button class="update">
+      <button class="update" @click="addContact = true">
         <img src="../assets/images/Union 6.png" alt="" />
         <p>契約書を作成する</p>
       </button>
     </div>
+    <div>
+        <transition name="fade" appear>
+          <div
+            class="modal-overlay"
+            v-if="addContact"
+            @click="addContact = false"
+          ></div>
+        </transition>
+        <transition name="slide" appear>
+          <div class="contact" v-if="addContact">
+            <div class="title" @click="addContact = false">
+              <h3>基本情報の編集</h3>
+              <button>
+                <img src="../assets/images/close.png" alt="" />
+              </button>
+            </div>
+            <div class="main-contact">
+              <div class="full-name">
+                <label><span>【必須】</span>氏名</label>
+                <input type="text"/>
+                <input type="text"/>
+              </div>
+              <div class="email">
+                <label><span>【必須】</span>メールアドレス</label>
+                <input type="text"/>
+              </div>
+              <div class="company-name">
+                <label>（任意）企業名</label>
+                <input type="text"/>
+              </div>
+              <div class="address">
+                <label>（任意）所属部署/グループ </label>
+                <input type="text"/>
+              </div>
+              <button class="edit-submit">変更する</button>
+            </div>
+          </div>
+        </transition>
+      </div>
   </div>
 </template>
 
@@ -188,7 +230,8 @@ export default {
   data() {
     return {
       showOption: -1,
-      show : false,
+      show: false,
+      addContact: false,
       editContact: false,
       hideContact: false,
       deleteContact: false,
@@ -288,7 +331,7 @@ th:last-child,
 td:last-child {
   justify-content: right;
 }
-td:last-child{
+td:last-child {
   padding-right: 20px;
 }
 td {
@@ -299,7 +342,7 @@ td .company {
   background-color: white;
   border: 1px solid #dddddd;
   border-radius: 15px;
-  width: 150px;
+  min-width: 150px;
   height: 30px;
 }
 .item {
@@ -325,7 +368,7 @@ td .company {
   font-weight: 700;
   color: #222222;
 }
-.item3 > label > span{
+.item3 > label > span {
   margin-right: 10px;
 }
 .item4 > p {
