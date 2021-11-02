@@ -20,6 +20,8 @@ func main() {
 
 	e.GET("/customers", controller.GetCustomers)
 
+	e.POST("/customers/add", controller.AddCustomer)
+
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
 }

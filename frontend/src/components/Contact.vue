@@ -46,8 +46,10 @@
                   </div>
                 </div>
               </td>
-              <td>所属部署</td>
-              <td><button class="company">{{contact.company_name}}</button></td>
+              <td>{{ contact.department }}</td>
+              <td>
+                <button class="company">{{ contact.company_name }}</button>
+              </td>
               <td>
                 <div class="tooltip">
                   <button v-on:click="myFunction(index)">
@@ -176,22 +178,23 @@
       </div>
     </div>
     <div class="content-right">
-      <button class="update" @click="addContact = true">
+      <button class="update" @click="add_contact = true">
         <img src="../assets/images/Union 6.png" alt="" />
         <p>契約書を作成する</p>
       </button>
     </div>
     <div>
-        <transition name="fade" appear>
-          <div
-            class="modal-overlay"
-            v-if="addContact"
-            @click="addContact = false"
-          ></div>
-        </transition>
+      <transition name="fade" appear>
+        <div
+          class="modal-overlay"
+          v-if="add_contact"
+          @click="add_contact = false"
+        ></div>
+      </transition>
+      <form @submit.prevent="addContact()" action="" method="post">
         <transition name="slide" appear>
-          <div class="contact" v-if="addContact">
-            <div class="title" @click="addContact = false">
+          <div class="contact" v-if="add_contact">
+            <div class="title" @click="add_contact = false">
               <h3>基本情報の編集</h3>
               <button>
                 <img src="../assets/images/close.png" alt="" />
@@ -200,26 +203,45 @@
             <div class="main-contact">
               <div class="full-name">
                 <label><span>【必須】</span>氏名</label>
-                <input type="text"/>
-                <input type="text"/>
+                <input
+                  v-model="first_name"
+                  type="text"
+                />
+                <input
+                  v-model="last_name"
+                  type="text"
+                />
               </div>
               <div class="email">
                 <label><span>【必須】</span>メールアドレス</label>
-                <input type="text"/>
+                <input v-model="email" type="text" />
               </div>
               <div class="company-name">
                 <label>（任意）企業名</label>
-                <input type="text"/>
+                <input
+                  v-model="company_name"
+                  type="text"
+                />
               </div>
               <div class="address">
                 <label>（任意）所属部署/グループ </label>
-                <input type="text"/>
+                <input
+                  v-model="department"
+                  type="text"
+                />
               </div>
-              <button class="edit-submit">変更する</button>
+              <button
+                type="submit"
+                class="edit-submit"
+                @click="add_contact = false"
+              >
+                変更する
+              </button>
             </div>
           </div>
         </transition>
-      </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -231,17 +253,31 @@ export default {
     return {
       showOption: -1,
       show: false,
-      addContact: false,
+      add_contact: false,
       editContact: false,
       hideContact: false,
       deleteContact: false,
       customers: [],
+      first_name: "",
+      last_name: "",
+      email: "",
+      department: "",
+      company_name: "",
     };
   },
   methods: {
     myFunction(index) {
       this.showOption = index;
       this.show = !this.show;
+    },
+    addContact() {
+      const fd = new FormData();
+      fd.append('first_name', this.first_name);
+      fd.append('last_name', this.last_name);
+      fd.append('email', this.email);
+      fd.append('department', this.department);
+      fd.append('company_name', this.company_name);
+      axios.post("/customers/add", fd);
     },
   },
   mounted() {

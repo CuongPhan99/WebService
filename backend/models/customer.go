@@ -6,4 +6,5 @@ type Customers struct {
 	Email       string `json:"email"`
 	FirstName   string `json:"first_name"`
 	CompanyName string `json:"company_name"`
+	Department  string `json:"department"`
 }
