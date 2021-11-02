@@ -80,36 +80,48 @@
                       @click="edit_contact = '-1'"
                     ></div>
                   </transition>
-                  <transition name="slide" appear>
-                    <div class="contact" v-if="edit_contact == contact.id">
-                      <div class="title" @click="edit_contact = '-1'">
-                        <h3>基本情報の編集</h3>
-                        <button>
-                          <img src="../assets/images/close.png" alt="" />
-                        </button>
+                  <form
+                    @submit.prevent="updateContact(contact.id)"
+                    action=""
+                    method="post"
+                  >
+                    <transition name="slide" appear>
+                      <div class="contact" v-if="edit_contact == contact.id">
+                        <div class="title" @click="edit_contact = '-1'">
+                          <h3>基本情報の編集</h3>
+                          <button>
+                            <img src="../assets/images/close.png" alt="" />
+                          </button>
+                        </div>
+                        <div class="main-contact">
+                          <div class="full-name">
+                            <label><span>【必須】</span>氏名</label>
+                            <input type="text" v-model="contact.last_name" />
+                            <input type="text" v-model="contact.first_name" />
+                          </div>
+                          <div class="email">
+                            <label><span>【必須】</span>メールアドレス</label>
+                            <input type="text" v-model="contact.email" />
+                          </div>
+                          <div class="company-name">
+                            <label>（任意）企業名</label>
+                            <input type="text" v-model="contact.company_name" />
+                          </div>
+                          <div class="address">
+                            <label>（任意）所属部署/グループ </label>
+                            <input type="text" v-model="contact.department" />
+                          </div>
+                          <button
+                            type="submit"
+                            class="edit-submit"
+                            @click="edit_contact = '-1'"
+                          >
+                            変更する
+                          </button>
+                        </div>
                       </div>
-                      <div class="main-contact">
-                        <div class="full-name">
-                          <label><span>【必須】</span>氏名</label>
-                          <input type="text" v-model="contact.last_name" />
-                          <input type="text" v-model="contact.first_name" />
-                        </div>
-                        <div class="email">
-                          <label><span>【必須】</span>メールアドレス</label>
-                          <input type="text" v-model="contact.email" />
-                        </div>
-                        <div class="company-name">
-                          <label>（任意）企業名</label>
-                          <input type="text" v-model="contact.company_name"/>
-                        </div>
-                        <div class="address">
-                          <label>（任意）所属部署/グループ </label>
-                          <input type="text" v-model="contact.address"/>
-                        </div>
-                        <button class="edit-submit">変更する</button>
-                      </div>
-                    </div>
-                  </transition>
+                    </transition>
+                  </form>
                 </div>
                 <div>
                   <transition name="fade" appear>
@@ -137,7 +149,12 @@
                             連絡先は削除されず、一覧に表示されなくなります。
                           </p>
                         </div>
-                        <button class="edit-submit">非表示にする</button>
+                        <button
+                          class="edit-submit"
+                          @click="hide_contact = '-1'"
+                        >
+                          非表示にする
+                        </button>
                       </div>
                     </div>
                   </transition>
@@ -151,7 +168,10 @@
                     ></div>
                   </transition>
                   <transition name="slide" appear>
-                    <div class="contact hide" v-if="delete_contact == contact.id">
+                    <div
+                      class="contact hide"
+                      v-if="delete_contact == contact.id"
+                    >
                       <div class="title" @click="delete_contact = '-1'">
                         <h3>連絡先の削除</h3>
                         <button>
@@ -166,7 +186,12 @@
                           </p>
                           <p>削除すると元に戻すことはできません。</p>
                         </div>
-                        <button class="edit-submit">削除する</button>
+                        <button
+                          class="edit-submit"
+                          @click="delete_contact = '-1'"
+                        >
+                          削除する
+                        </button>
                       </div>
                     </div>
                   </transition>
@@ -266,7 +291,7 @@ export default {
       fd.append("email", this.email);
       fd.append("department", this.department);
       fd.append("company_name", this.company_name);
-      axios.post("/customers/add", fd);
+      axios.post("/customer/add", fd);
     },
     editContact(id) {
       this.edit_contact = id;
@@ -275,12 +300,22 @@ export default {
         .then((response) => (this.contact = response.data[0]))
         .catch((error) => console.log(error));
     },
-    hideContact(id){
+    updateContact(id) {
+      const fd = new FormData();
+      fd.append("first_name", this.contact.first_name);
+      fd.append("last_name", this.contact.last_name);
+      fd.append("email", this.contact.email);
+      fd.append("department", this.contact.department);
+      fd.append("company_name", this.contact.company_name);
+      axios.post("/customer/" + id, fd)
+      .then(res => console.log(res)).catch(err => console.log(err));
+    },
+    hideContact(id) {
       this.hide_contact = id;
     },
-    deleteContact(id){
+    deleteContact(id) {
       this.delete_contact = id;
-    }
+    },
   },
   mounted() {
     axios

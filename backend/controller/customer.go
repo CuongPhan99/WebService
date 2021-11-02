@@ -56,3 +56,28 @@ func GetCustomerById(c echo.Context) error {
 	customer, _ := GetRepoCustomerById(c)
 	return c.JSON(http.StatusOK, customer)
 }
+
+func UpdateCustomer(c echo.Context) error {
+	db := storage.GetDBInstance()
+	customer := &model.Customers{}
+
+	id := c.Param("id")
+	first_name := c.FormValue("first_name")
+	last_name := c.FormValue("last_name")
+	email := c.FormValue("email")
+	company_name := c.FormValue("company_name")
+	department := c.FormValue("department")
+
+	db.Find(&customer, id)
+	customer.FirstName = first_name
+	customer.LastName = last_name
+	customer.Email = email
+	customer.CompanyName = company_name
+	customer.Department = department
+	db.Save(&customer)
+
+	if customer == nil {
+		return echo.NewHTTPError(http.StatusNotFound, "user not found")
+	}
+	return c.JSON(http.StatusOK, customer)
+}

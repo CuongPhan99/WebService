@@ -24,6 +24,8 @@ func main() {
 
 	e.GET("/customer/:id", controller.GetCustomerById)
 
+	e.POST("/customer/:id", controller.UpdateCustomer)
+
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
 }
