@@ -90,9 +90,7 @@
                   <div class="input-name">
                     <label for="">企業名</label>
                     <input
-                      id="companyName"
                       v-model="account.company_name"
-                      name="companyName"
                       type="text"
                     />
                   </div>
@@ -452,46 +450,53 @@ export default {
     updateLogo() {
       const fd = new FormData();
       fd.append("logo", this.image);
-      axios.post("/account/" + this.id, fd);
+      axios.post("/account/" + this.id, fd)
+      .then(res => console.log(res)).catch(err => console.log(err));
       this.$forceUpdate();
     },
     updateCompanyName() {
       const fd = new FormData();
       fd.append("company_name", this.account.company_name);
-      axios.post("/account/" + this.id, fd);
+      axios.post("/account/" + this.id, fd)
+      .then(res => console.log(res)).catch(err => console.log(err));
     },
     updateAddressCompany() {
       const fd = new FormData();
       fd.append("address_company", this.account.address_company);
-      axios.post("/account/" + this.id, fd);
+      axios.post("/account/" + this.id, fd)
+      .then(res => console.log(res)).catch(err => console.log(err));
     },
     updatePhone() {
       const fd = new FormData();
       fd.append("phone", this.account.phone);
-      axios.post("/account/" + this.id, fd);
+      axios.post("/account/" + this.id, fd)
+      .then(res => console.log(res)).catch(err => console.log(err));
     },
     updateName() {
       const fd = new FormData();
       fd.append("name", this.account.name);
-      axios.post("/account/" + this.id, fd);
+      axios.post("/account/" + this.id, fd)
+      .then(res => console.log(res)).catch(err => console.log(err));
     },
     updateOriginalImprint() {
       const fd = new FormData();
       fd.append("original_imprint", this.original_imprint);
-      axios.post("/account/" + this.id, fd);
-      this.$forceUpdate();
+      axios.post("/account/" + this.id, fd)
+      .then(res => console.log(res)).catch(err => console.log(err));
     },
     onClick1() {
       this.account.security = !this.account.security;
       const fd = new FormData();
       fd.append("security", this.account.security);
-      axios.post("/account/" + this.id, fd);
+      axios.post("/account/" + this.id, fd)
+      .then(res => console.log(res)).catch(err => console.log(err));
     },
     onClick2() {
       this.account.notification = !this.account.notification;
       const fd = new FormData();
       fd.append("notification", this.account.notification);
-      axios.post("/account/" + this.id, fd);
+      axios.post("/account/" + this.id, fd)
+      .then(res => console.log(res)).catch(err => console.log(err));
     },
   },
   mounted() {
@@ -499,7 +504,7 @@ export default {
       .get("/account/" + this.id)
       .then((response) => (this.account = response.data[0]))
       .catch((error) => console.log(error));
-  },
+  }
 };
 </script>
 

@@ -13,7 +13,7 @@ func GetRepoCustomers() ([]model.Customers, error) {
 	db := storage.GetDBInstance()
 	customers := []model.Customers{}
 
-	if err := db.Find(&customers).Error; err != nil {
+	if err := db.Order("id desc").Find(&customers).Error; err != nil {
 		return nil, err
 	}
 	return customers, nil
@@ -76,6 +76,17 @@ func UpdateCustomer(c echo.Context) error {
 	customer.Department = department
 	db.Save(&customer)
 
+	if customer == nil {
+		return echo.NewHTTPError(http.StatusNotFound, "user not found")
+	}
+	return c.JSON(http.StatusOK, customer)
+}
+
+func DeleteCustomer(c echo.Context) error {
+	db := storage.GetDBInstance()
+	customer := &model.Customers{}
+	id := c.Param("id")
+	db.Delete(&customer, id)
 	if customer == nil {
 		return echo.NewHTTPError(http.StatusNotFound, "user not found")
 	}

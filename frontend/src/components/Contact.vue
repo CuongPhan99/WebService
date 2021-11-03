@@ -26,8 +26,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr :class="{active: show_option == item.id}" v-for="item in customers" :key="item.id">
-              <td >
+            <tr
+              :class="{ active: show_option == item.id }"
+              v-for="item in customers"
+              :key="item.id"
+            >
+              <td>
                 <div class="item">
                   <div class="item1">
                     <img src="../assets/images/profile.png" />
@@ -59,15 +63,27 @@
                     v-show="show_option == item.id && show"
                     class="tooltiptext tooltip-bottom"
                   >
-                    <a @click="editContact(item.id)"
+                    <a
+                      @click="
+                        getUpdateContact(item.id);
+                        show = false;
+                      "
                       ><img src="../assets/images/icon_edit.png" />編集</a
                     >
-                    <a @click="hideContact(item.id)"
+                    <a
+                      @click="
+                        getHideContact(item.id);
+                        show = false;
+                      "
                       ><img
                         src="../assets/images/icon_hide.png"
                       />非表示にする</a
                     >
-                    <a @click="deleteContact(item.id)"
+                    <a
+                      @click="
+                        getDeleteContact(item.id);
+                        show = false;
+                      "
                       ><img src="../assets/images/icon_delete.png" />削除</a
                     >
                   </span>
@@ -168,10 +184,7 @@
                     ></div>
                   </transition>
                   <transition name="slide" appear>
-                    <div
-                      class="contact hide"
-                      v-if="delete_contact == item.id"
-                    >
+                    <div class="contact hide" v-if="delete_contact == item.id">
                       <div class="title" @click="delete_contact = '-1'">
                         <h3>連絡先の削除</h3>
                         <button>
@@ -187,8 +200,11 @@
                           <p>削除すると元に戻すことはできません。</p>
                         </div>
                         <button
+                          type="submit"
                           class="edit-submit"
-                          @click="delete_contact = '-1'"
+                          @click="
+                            deleteContact(item.id), (delete_contact = '-1')
+                          "
                         >
                           削除する
                         </button>
@@ -216,15 +232,15 @@
           @click="add_contact = false"
         ></div>
       </transition>
-      <form @submit.prevent="addContact()" action="" method="post">
-        <transition name="slide" appear>
-          <div class="contact" v-if="add_contact">
-            <div class="title" @click="add_contact = false">
-              <h3>基本情報の編集</h3>
-              <button>
-                <img src="../assets/images/close.png" alt="" />
-              </button>
-            </div>
+      <transition name="slide" appear>
+        <div class="contact" v-if="add_contact">
+          <div class="title" @click="add_contact = false">
+            <h3>基本情報の編集</h3>
+            <button>
+              <img src="../assets/images/close.png" alt="" />
+            </button>
+          </div>
+          <form @submit.prevent="addContact()" action="" method="post">
             <div class="main-contact">
               <div class="full-name">
                 <label><span>【必須】</span>氏名</label>
@@ -251,9 +267,9 @@
                 変更する
               </button>
             </div>
-          </div>
-        </transition>
-      </form>
+          </form>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -291,9 +307,12 @@ export default {
       fd.append("email", this.email);
       fd.append("department", this.department);
       fd.append("company_name", this.company_name);
-      axios.post("/customer/add", fd);
+      axios
+        .post("/customer/add", fd)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
     },
-    editContact(id) {
+    getUpdateContact(id) {
       this.edit_contact = id;
       axios
         .get("/customer/" + id)
@@ -307,17 +326,31 @@ export default {
       fd.append("email", this.contact.email);
       fd.append("department", this.contact.department);
       fd.append("company_name", this.contact.company_name);
-      axios.post("/customer/" + id, fd)
-      .then(res => console.log(res)).catch(err => console.log(err));
+      axios
+        .put("/customer/" + id, fd)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
     },
-    hideContact(id) {
+    getHideContact(id) {
       this.hide_contact = id;
     },
-    deleteContact(id) {
+    getDeleteContact(id) {
       this.delete_contact = id;
+    },
+    deleteContact(id) {
+      axios
+        .delete("/customer/" + id)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
     },
   },
   mounted() {
+    axios
+      .get("/customers")
+      .then((response) => (this.customers = response.data))
+      .catch((error) => console.log(error));
+  },
+  updated() {
     axios
       .get("/customers")
       .then((response) => (this.customers = response.data))
@@ -450,8 +483,8 @@ td .company {
   width: 70px;
   color: #666666;
 }
-tr.active td{
-  background-color: #EEEEEE
+tr.active td {
+  background-color: #eeeeee;
 }
 
 /* In put check all */

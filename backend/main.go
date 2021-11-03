@@ -24,7 +24,9 @@ func main() {
 
 	e.GET("/customer/:id", controller.GetCustomerById)
 
-	e.POST("/customer/:id", controller.UpdateCustomer)
+	e.PUT("/customer/:id", controller.UpdateCustomer)
+
+	e.DELETE("/customer/:id", controller.DeleteCustomer)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
