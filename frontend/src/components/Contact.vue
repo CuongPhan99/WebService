@@ -13,14 +13,20 @@
               <th>所属部署/グループ</th>
               <th>会社名</th>
               <th>
-                <input type="checkbox" id="cbx" style="display: none" />
+                <input
+                  type="checkbox"
+                  @click="unhideContact()"
+                  id="cbx"
+                  style="display: none"
+                />
                 <label for="cbx" class="check">
                   <svg width="18px" height="18px" viewBox="0 0 18 18">
                     <path
                       d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"
                     ></path>
-                    <polyline points="1 9 7 14 15 4"></polyline></svg
-                  ><span>すべて表示</span>
+                    <polyline points="1 9 7 14 15 4"></polyline>
+                  </svg>
+                  <span>すべて表示</span>
                 </label>
               </th>
             </tr>
@@ -42,7 +48,14 @@
                         <span>{{ item.last_name }}</span>
                         <span>{{ item.first_name }}</span>
                       </label>
-                      <img src="../assets/images/icon_hide_black.png" alt="" />
+                      <img
+                        :src="
+                          item.active == true
+                            ? require('../assets/images/icon_unhide_black.png')
+                            : require('../assets/images/icon_hide_black.png')
+                        "
+                        alt=""
+                      />
                     </div>
                     <div class="item4">
                       <p>{{ item.email }}</p>
@@ -76,7 +89,11 @@
                         show = false;
                       "
                       ><img
-                        src="../assets/images/icon_hide.png"
+                        :src="
+                          item.active == false
+                            ? require('../assets/images/icon_unhide.png')
+                            : require('../assets/images/icon_hide.png')
+                        "
                       />非表示にする</a
                     >
                     <a
@@ -166,8 +183,9 @@
                           </p>
                         </div>
                         <button
+                          type="submit"
                           class="edit-submit"
-                          @click="hide_contact = '-1'"
+                          @click="hideContact(item.id), (hide_contact = '-1')"
                         >
                           非表示にする
                         </button>
@@ -333,6 +351,18 @@ export default {
     },
     getHideContact(id) {
       this.hide_contact = id;
+    },
+    hideContact(id) {
+      axios
+        .post("/customer/hide/" + id)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    },
+    unhideContact() {
+      axios
+        .get("/customer/unhide")
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
     },
     getDeleteContact(id) {
       this.delete_contact = id;
