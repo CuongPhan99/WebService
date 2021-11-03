@@ -26,8 +26,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="contact in customers" :key="contact.id">
-              <td>
+            <tr :class="{active: show_option == item.id}" v-for="item in customers" :key="item.id">
+              <td >
                 <div class="item">
                   <div class="item1">
                     <img src="../assets/images/profile.png" />
@@ -35,39 +35,39 @@
                   <div class="item2">
                     <div class="item3">
                       <label>
-                        <span>{{ contact.last_name }}</span>
-                        <span>{{ contact.first_name }}</span>
+                        <span>{{ item.last_name }}</span>
+                        <span>{{ item.first_name }}</span>
                       </label>
                       <img src="../assets/images/icon_hide_black.png" alt="" />
                     </div>
                     <div class="item4">
-                      <p>{{ contact.email }}</p>
+                      <p>{{ item.email }}</p>
                     </div>
                   </div>
                 </div>
               </td>
-              <td>{{ contact.department }}</td>
+              <td>{{ item.department }}</td>
               <td>
-                <button class="company">{{ contact.company_name }}</button>
+                <button class="company">{{ item.company_name }}</button>
               </td>
               <td>
                 <div class="tooltip">
-                  <button v-on:click="myFunction(contact.id)">
+                  <button v-on:click="myFunction(item.id)">
                     <img src="../assets/images/Group 7264.png" />
                   </button>
                   <span
-                    v-show="show_option == contact.id && show"
+                    v-show="show_option == item.id && show"
                     class="tooltiptext tooltip-bottom"
                   >
-                    <a @click="editContact(contact.id)"
+                    <a @click="editContact(item.id)"
                       ><img src="../assets/images/icon_edit.png" />編集</a
                     >
-                    <a @click="hideContact(contact.id)"
+                    <a @click="hideContact(item.id)"
                       ><img
                         src="../assets/images/icon_hide.png"
                       />非表示にする</a
                     >
-                    <a @click="deleteContact(contact.id)"
+                    <a @click="deleteContact(item.id)"
                       ><img src="../assets/images/icon_delete.png" />削除</a
                     >
                   </span>
@@ -76,17 +76,17 @@
                   <transition name="fade" appear>
                     <div
                       class="modal-overlay"
-                      v-if="edit_contact == contact.id"
+                      v-if="edit_contact == item.id"
                       @click="edit_contact = '-1'"
                     ></div>
                   </transition>
                   <form
-                    @submit.prevent="updateContact(contact.id)"
+                    @submit.prevent="updateContact(item.id)"
                     action=""
                     method="post"
                   >
                     <transition name="slide" appear>
-                      <div class="contact" v-if="edit_contact == contact.id">
+                      <div class="contact" v-if="edit_contact == item.id">
                         <div class="title" @click="edit_contact = '-1'">
                           <h3>基本情報の編集</h3>
                           <button>
@@ -127,12 +127,12 @@
                   <transition name="fade" appear>
                     <div
                       class="modal-overlay"
-                      v-if="hide_contact == contact.id"
+                      v-if="hide_contact == item.id"
                       @click="hide_contact = '-1'"
                     ></div>
                   </transition>
                   <transition name="slide" appear>
-                    <div class="contact hide" v-if="hide_contact == contact.id">
+                    <div class="contact hide" v-if="hide_contact == item.id">
                       <div class="title" @click="hide_contact = '-1'">
                         <h3>連絡先の非表示</h3>
                         <button>
@@ -163,14 +163,14 @@
                   <transition name="fade" appear>
                     <div
                       class="modal-overlay"
-                      v-if="delete_contact == contact.id"
+                      v-if="delete_contact == item.id"
                       @click="delete_contact = '-1'"
                     ></div>
                   </transition>
                   <transition name="slide" appear>
                     <div
                       class="contact hide"
-                      v-if="delete_contact == contact.id"
+                      v-if="delete_contact == item.id"
                     >
                       <div class="title" @click="delete_contact = '-1'">
                         <h3>連絡先の削除</h3>
@@ -270,7 +270,7 @@ export default {
       edit_contact: -1,
       hide_contact: -1,
       delete_contact: -1,
-      contact: "",
+      contact: [],
       customers: [],
       first_name: "",
       last_name: "",
@@ -449,6 +449,9 @@ td .company {
   text-align: left;
   width: 70px;
   color: #666666;
+}
+tr.active td{
+  background-color: #EEEEEE
 }
 
 /* In put check all */

@@ -399,4 +399,9 @@ a {
   margin-left: 270px;
   flex: 1;
 }
+@media screen and (max-height: 768px) {
+  .sidebar{
+    overflow: overlay;
+  }
+}
 </style>
