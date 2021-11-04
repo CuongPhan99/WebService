@@ -404,9 +404,10 @@ export default {
 }
 .list-search {
   position: fixed;
-  width: calc(100% - 600px);
-  box-shadow: 0px -18px 0px 13px white;
-  z-index: 98;
+  left: 300px;
+  right: 300px;
+  /* box-shadow: 0px -18px 0px 13px white; */
+  z-index: 89;
 }
 .list-search > input {
   width: 100%;
@@ -430,10 +431,10 @@ table {
   border-collapse: collapse;
   min-width: 100%;
   grid-template-columns:
-    minmax(150px, 1.67fr)
-    minmax(150px, 1fr)
-    minmax(150px, 1fr)
-    minmax(150px, 1.67fr);
+    minmax(200px, 1.67fr)
+    minmax(120px, 1fr)
+    minmax(120px, 1fr)
+    minmax(200px, 1.67fr);
 }
 thead,
 tbody,

@@ -87,7 +87,13 @@ func HideCustomer(c echo.Context) error {
 	customer := &model.Customers{}
 	id := c.Param("id")
 
-	db.Model(&customer).Where("id = ?", id).Update("active", false)
+	db.First(&customer, id)
+	if !customer.Active {
+		customer.Active = true
+	} else if customer.Active {
+		customer.Active = false
+	}
+	db.Save(&customer)
 	if customer == nil {
 		return echo.NewHTTPError(http.StatusNotFound, "user not found")
 	}

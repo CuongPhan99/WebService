@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div class="sidebar" role="banner">
+    <!-- Sidebar PC -->
+    <nav class="sidebar" role="banner">
       <div class="header-menu">
         <div class="logo">
           <img src="./assets/images/Mask Group 36.png" alt="" />
@@ -81,7 +82,116 @@
           <li><p>Digital Sign ©2021</p></li>
         </ol>
       </div>
-    </div>
+    </nav>
+    <!-- Sidebar Tablet, Mobile -->
+    <label for="nav-mobile-input" class="sidebar__mobile-btn">
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        data-prefix="fas"
+        data-icon="bars"
+        class="svg-inline--fa fa-bars fa-w-14"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 448 512"
+      >
+        <path
+          fill="currentColor"
+          d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+        ></path>
+      </svg>
+    </label>
+    <input
+      type="checkbox"
+      hidden
+      name=""
+      class="nav__input"
+      id="nav-mobile-input"
+    />
+    <label for="nav-mobile-input" class="nav__overlay"></label>
+    <nav class="sidebar" role="banner">
+      <div class="header-menu">
+        <div class="logo">
+          <img src="./assets/images/Mask Group 36.png" alt="" />
+        </div>
+        <div class="title">
+          <img src="./assets/images/best-logos-2017-1.png" alt="" />
+          <label>株式会社C-mind</label>
+        </div>
+        <div class="add-menu">
+          <button class="update">
+            <img src="./assets/images/Union 6.png" alt="" />
+            <p>契約書を作成する</p>
+          </button>
+        </div>
+        <div class="nav-wrap">
+          <ul id="nav-sidebar">
+            <li v-for="(item, index) in items" v-bind:key="index">
+              <router-link
+                :to="{
+                  name: 'home',
+                  params: { name: item.name },
+                }"
+              >
+                <a
+                  @click="
+                    index === 3 ? subNav(activeNav) : changeTab();
+                    activeClass(index);
+                  "
+                  :class="{ active: tabActive == index }"
+                  >{{ item.name }}
+                  <img
+                    v-if="index === 3"
+                    v-bind:src="
+                      activeNav
+                        ? require('./assets/images/icon-on.png')
+                        : require('./assets/images/icon-off.png')
+                    "
+                    alt=""
+                  />
+                </a>
+              </router-link>
+              <ul v-show="activeNav" class="subnav">
+                <li
+                  v-for="(child, index) in item.childrens"
+                  v-bind:key="index"
+                  @click="activeChildClass(index)"
+                  :class="{ activeChild: tabActiveChild == index }"
+                >
+                  <router-link
+                    :to="{
+                      name: 'accountDetail',
+                      params: { name: child.name, id: 1 },
+                    }"
+                  >
+                    <a>
+                      {{ child.name }}
+                    </a>
+                  </router-link>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-menu">
+        <ol>
+          <li v-for="(item, index) in footerItems" :key="index">
+            <a href="#">{{ item.name }}</a>
+          </li>
+          <li>
+            <ul class="social-network">
+              <img src="./assets/images/Mask Group 60.png" alt="" />
+              <img src="./assets/images/Mask Group 59.png" alt="" />
+              <img src="./assets/images/Mask Group 50.png" alt="" />
+              <img src="./assets/images/Mask Group 51.png" alt="" />
+            </ul>
+          </li>
+          <li><p>Digital Sign ©2021</p></li>
+        </ol>
+      </div>
+    </nav>
+    <!-- Content -->
     <div class="content">
       <div class="nav-content">
         <div class="header">
@@ -199,6 +309,8 @@ a {
   top: 0;
   bottom: 0;
   background: #201a39;
+  overflow: overlay;
+  z-index: 98;
 }
 
 .logo {
@@ -264,11 +376,11 @@ a {
 /* Header */
 .nav-content {
   position: fixed;
-  z-index: 98;
   top: 0;
   left: 270px;
   right: 0;
   background-color: white;
+  z-index: 97;
 }
 .header {
   padding: 20px 30px 20px 23px;
@@ -399,9 +511,68 @@ a {
   margin-left: 270px;
   flex: 1;
 }
-@media screen and (max-height: 768px) {
-  .sidebar{
-    overflow: overlay;
+
+/* Mobile sidebar */
+.sidebar__mobile-btn {
+  position: fixed;
+  top: 0;
+  width: 25px;
+  height: 25px;
+  color: black;
+  margin: 15px;
+  display: none;
+}
+.nav__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+  animation: fadeIn linear 0.2s;
+}
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: all linear 0.2s;
+    opacity: 0;
+  }
+  .sidebar__mobile-btn {
+    display: block;
+  }
+  .nav__overlay {
+    z-index: 98;
+  }
+  .nav__input:checked ~ .nav__overlay {
+    display: block;
+  }
+  .nav__input:checked ~ .sidebar {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  /* Content */
+  .nav-content {
+    top: 50px;
+    left: 0;
+  }
+  .content {
+    margin-left: 0;
+  }
+  /* Content left */
+  .main {
+    margin-top: 200px;
+  }
+  .list-search {
+    left: 30px !important;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>
