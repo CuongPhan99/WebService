@@ -9,6 +9,16 @@ import (
 )
 
 //Handler
+func GetRepoCustomers() ([]model.Customers, error) {
+	db := storage.GetDBInstance()
+	customers := []model.Customers{}
+
+	if err := db.Order("id desc").Where("active = ?", true).Find(&customers).Error; err != nil {
+		return nil, err
+	}
+	return customers, nil
+}
+
 func GetCustomers(c echo.Context) error {
 	db := storage.GetDBInstance()
 	customers := []model.Customers{}
@@ -36,10 +46,9 @@ func AddCustomer(c echo.Context) error {
 
 	customer := &model.Customers{FirstName: first_name, LastName: last_name, Email: email, CompanyName: company_name, Department: department, Active: true}
 	db.Create(&customer)
-	if customer == nil {
-		return echo.NewHTTPError(http.StatusNotFound, "user not found")
-	}
-	return c.JSON(http.StatusOK, &customer)
+
+	customers, _ := GetRepoCustomers()
+	return c.JSON(http.StatusOK, &customers)
 }
 
 func GetRepoCustomerById(c echo.Context) ([]model.Customers, error) {
@@ -77,10 +86,8 @@ func UpdateCustomer(c echo.Context) error {
 	customer.Department = department
 	db.Save(&customer)
 
-	if customer == nil {
-		return echo.NewHTTPError(http.StatusNotFound, "user not found")
-	}
-	return c.JSON(http.StatusOK, customer)
+	customers, _ := GetRepoCustomers()
+	return c.JSON(http.StatusOK, &customers)
 }
 
 func HideCustomer(c echo.Context) error {
@@ -95,10 +102,9 @@ func HideCustomer(c echo.Context) error {
 		customer.Active = false
 	}
 	db.Save(&customer)
-	if customer == nil {
-		return echo.NewHTTPError(http.StatusNotFound, "user not found")
-	}
-	return c.JSON(http.StatusOK, customer)
+
+	customers, _ := GetRepoCustomers()
+	return c.JSON(http.StatusOK, &customers)
 }
 
 func DeleteCustomer(c echo.Context) error {
@@ -106,8 +112,7 @@ func DeleteCustomer(c echo.Context) error {
 	customer := &model.Customers{}
 	id := c.Param("id")
 	db.Delete(&customer, id)
-	if customer == nil {
-		return echo.NewHTTPError(http.StatusNotFound, "user not found")
-	}
-	return c.JSON(http.StatusOK, customer)
+
+	customers, _ := GetRepoCustomers()
+	return c.JSON(http.StatusOK, &customers)
 }

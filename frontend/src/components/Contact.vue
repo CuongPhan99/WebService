@@ -1,5 +1,6 @@
 <template>
   <div class="main-content">
+    <div class="boss"></div>
     <div class="content-left">
       <div class="list-search">
         <input type="text" value="連絡先を検索する" />
@@ -329,8 +330,8 @@ export default {
       fd.append("company_name", this.company_name);
       axios
         .post("/customer/add", fd)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        .then((response) => (this.customers = response.data))
+        .catch((error) => console.log(error));
     },
     getUpdateContact(id) {
       this.edit_contact = id;
@@ -348,8 +349,8 @@ export default {
       fd.append("company_name", this.contact.company_name);
       axios
         .put("/customer/" + id, fd)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        .then((response) => (this.customers = response.data))
+        .catch((error) => console.log(error));
     },
     getHideContact(id) {
       this.hide_contact = id;
@@ -357,8 +358,8 @@ export default {
     hideContact(id) {
       axios
         .post("/customer/hide/" + id)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        .then((response) => (this.customers = response.data))
+        .catch((error) => console.log(error));
     },
     getDeleteContact(id) {
       this.delete_contact = id;
@@ -366,8 +367,8 @@ export default {
     deleteContact(id) {
       axios
         .delete("/customer/" + id)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        .then((response) => (this.customers = response.data))
+        .catch((error) => console.log(error));
     },
     hideAllContact(){
       axios
@@ -382,6 +383,12 @@ export default {
       .then((response) => (this.customers = response.data))
       .catch((error) => console.log(error));
   },
+  mounted(){
+    axios
+      .get("/customers", {params: {hide_all: true}})
+      .then((response) => (this.customers = response.data))
+      .catch((error) => console.log(error));
+  }
 };
 </script>
 
@@ -427,10 +434,10 @@ table {
   border-collapse: collapse;
   min-width: 100%;
   grid-template-columns:
-    minmax(200px, 1.67fr)
-    minmax(120px, 1fr)
-    minmax(120px, 1fr)
-    minmax(200px, 1.67fr);
+    minmax(250px, 1.67fr)
+    minmax(150px, 1fr)
+    minmax(150px, 1fr)
+    minmax(250px, 1.67fr);
 }
 thead,
 tbody,
@@ -750,5 +757,21 @@ tr.active td {
 .update img {
   margin: 15px;
   float: left;
+}
+@media (max-width: 1024px) {
+  /* Content left */
+  .list-search {
+    left: 30px;
+  }
+  th{
+    top: 250px
+  }
+  .boss{
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    height: 60px;
+    margin: -10px;
+  }
 }
 </style>

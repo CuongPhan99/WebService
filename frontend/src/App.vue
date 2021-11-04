@@ -84,6 +84,7 @@
       </div>
     </nav>
     <!-- Sidebar Tablet, Mobile -->
+    <nav class="navsidebar__mobile">
     <label for="nav-mobile-input" class="sidebar__mobile-btn">
       <svg
         aria-hidden="true"
@@ -101,6 +102,7 @@
         ></path>
       </svg>
     </label>
+    </nav>
     <input
       type="checkbox"
       hidden
@@ -513,6 +515,14 @@ a {
 }
 
 /* Mobile sidebar */
+.navsidebar__mobile{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  display: none;
+}
 .sidebar__mobile-btn {
   position: fixed;
   top: 0;
@@ -538,7 +548,7 @@ a {
     transition: all linear 0.2s;
     opacity: 0;
   }
-  .sidebar__mobile-btn {
+  .sidebar__mobile-btn, .navsidebar__mobile {
     display: block;
   }
   .nav__overlay {
@@ -559,12 +569,8 @@ a {
   .content {
     margin-left: 0;
   }
-  /* Content left */
   .main {
     margin-top: 200px;
-  }
-  .list-search {
-    left: 30px !important;
   }
 }
 @keyframes fadeIn {

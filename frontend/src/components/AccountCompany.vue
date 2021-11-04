@@ -745,4 +745,17 @@ label {
   color: #666666;
   font-weight: 500;
 }
+@media (max-width: 1024px) {
+  /* Content left */
+  .content-left{
+    margin: 0
+  }
+  .infomation{
+    grid-template-columns: 20% 60% 10% 10%;
+  }
+  /* Content Right */
+  .content-right {
+    display: none;
+  }
+}
 </style>
