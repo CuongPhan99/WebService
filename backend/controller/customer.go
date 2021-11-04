@@ -14,9 +14,9 @@ func GetCustomers(c echo.Context) error {
 	customers := []model.Customers{}
 
 	hide_all := c.QueryParam("hide_all")
-	if hide_all == "true" {
+	if hide_all == "false" {
 		db.Order("id desc").Find(&customers)
-	} else if hide_all == "false" {
+	} else if hide_all == "true" {
 		db.Order("id desc").Where("active = ?", true).Find(&customers)
 	}
 	if customers == nil {

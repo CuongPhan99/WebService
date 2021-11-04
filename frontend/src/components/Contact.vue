@@ -14,6 +14,7 @@
               <th>会社名</th>
               <th>
                 <input
+                  @click="hideAllContact()"
                   v-model="hide_all"
                   type="checkbox"
                   id="cbx"
@@ -368,16 +369,16 @@ export default {
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
     },
-  },
-  created() {
-    axios
+    hideAllContact(){
+      axios
       .get("/customers", {params: {hide_all: this.hide_all}})
       .then((response) => (this.customers = response.data))
       .catch((error) => console.log(error));
+    }
   },
-  updated() {
+  created() {
     axios
-      .get("/customers", {params: {hide_all: this.hide_all}})
+      .get("/customers", {params: {hide_all: true}})
       .then((response) => (this.customers = response.data))
       .catch((error) => console.log(error));
   },
