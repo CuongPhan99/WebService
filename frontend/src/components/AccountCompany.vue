@@ -499,7 +499,7 @@ export default {
       .then(res => console.log(res)).catch(err => console.log(err));
     },
   },
-  mounted() {
+  created() {
     axios
       .get("/account/" + this.id)
       .then((response) => (this.account = response.data[0]))

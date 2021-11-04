@@ -9,19 +9,20 @@ import (
 )
 
 //Handler
-func GetRepoCustomers() ([]model.Customers, error) {
+func GetCustomers(c echo.Context) error {
 	db := storage.GetDBInstance()
 	customers := []model.Customers{}
 
-	if err := db.Order("id desc").Where("active_all = ?", true).Find(&customers).Error; err != nil {
-		return nil, err
+	hide_all := c.QueryParam("hide_all")
+	if hide_all == "true" {
+		db.Order("id desc").Find(&customers)
+	} else if hide_all == "false" {
+		db.Order("id desc").Where("active = ?", true).Find(&customers)
 	}
-	return customers, nil
-}
-
-func GetCustomers(c echo.Context) error {
-	customers, _ := GetRepoCustomers()
-	return c.JSON(http.StatusOK, customers)
+	if customers == nil {
+		return echo.NewHTTPError(http.StatusNotFound, "user not found")
+	}
+	return c.JSON(http.StatusOK, &customers)
 }
 
 func AddCustomer(c echo.Context) error {
@@ -33,7 +34,7 @@ func AddCustomer(c echo.Context) error {
 	company_name := c.FormValue("company_name")
 	department := c.FormValue("department")
 
-	customer := &model.Customers{FirstName: first_name, LastName: last_name, Email: email, CompanyName: company_name, Department: department, Active: true, ActiveAll: true}
+	customer := &model.Customers{FirstName: first_name, LastName: last_name, Email: email, CompanyName: company_name, Department: department, Active: true}
 	db.Create(&customer)
 	if customer == nil {
 		return echo.NewHTTPError(http.StatusNotFound, "user not found")
@@ -94,17 +95,6 @@ func HideCustomer(c echo.Context) error {
 		customer.Active = false
 	}
 	db.Save(&customer)
-	if customer == nil {
-		return echo.NewHTTPError(http.StatusNotFound, "user not found")
-	}
-	return c.JSON(http.StatusOK, customer)
-}
-
-func UnhideCustomer(c echo.Context) error {
-	db := storage.GetDBInstance()
-	customer := &model.Customers{}
-
-	db.Model(&customer).Update("active_all", true)
 	if customer == nil {
 		return echo.NewHTTPError(http.StatusNotFound, "user not found")
 	}

@@ -14,8 +14,8 @@
               <th>会社名</th>
               <th>
                 <input
+                  v-model="hide_all"
                   type="checkbox"
-                  @click="unhideContact()"
                   id="cbx"
                   style="display: none"
                 />
@@ -301,6 +301,7 @@ export default {
       show_option: -1,
       show: false,
       add_contact: false,
+      hide_all: false,
       edit_contact: -1,
       hide_contact: -1,
       delete_contact: -1,
@@ -358,12 +359,6 @@ export default {
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
     },
-    unhideContact() {
-      axios
-        .get("/customer/unhide")
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-    },
     getDeleteContact(id) {
       this.delete_contact = id;
     },
@@ -374,15 +369,15 @@ export default {
         .catch((err) => console.log(err));
     },
   },
-  mounted() {
+  created() {
     axios
-      .get("/customers")
+      .get("/customers", {params: {hide_all: this.hide_all}})
       .then((response) => (this.customers = response.data))
       .catch((error) => console.log(error));
   },
   updated() {
     axios
-      .get("/customers")
+      .get("/customers", {params: {hide_all: this.hide_all}})
       .then((response) => (this.customers = response.data))
       .catch((error) => console.log(error));
   },

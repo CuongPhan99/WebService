@@ -31,8 +31,6 @@ func main() {
 
 	e.POST("/customer/hide/:id", controller.HideCustomer)
 
-	e.GET("/customer/unhide", controller.UnhideCustomer)
-
 	e.DELETE("/customer/:id", controller.DeleteCustomer)
 
 	// Start server
